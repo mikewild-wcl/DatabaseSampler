@@ -1,12 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace DatabaseSampler.Application.Messages
+namespace DatabaseSampler.Application.Messages;
+
+public class ErrorResponse
 {
-    public class ErrorResponse
-    {
-        [JsonPropertyName("error")]
-        public string Error { get; set; }
-        [JsonPropertyName("status")]
-        public string Status { get; set; }
-    }
+    [JsonPropertyName("error")]
+    public string Error { get; set; }
+    [JsonPropertyName("status")]
+    public string Status { get; set; }
 }

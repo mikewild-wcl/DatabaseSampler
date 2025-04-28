@@ -1,9 +1,8 @@
 ﻿using DatabaseSampler.Application.Models;
 
-namespace DatabaseSampler.Application.Interfaces
+namespace DatabaseSampler.Application.Interfaces;
+
+public interface IDataGenerator
 {
-    public interface IDataGenerator
-    {
-        Student CreateStudent();
-    }
+    Student CreateStudent();
 }

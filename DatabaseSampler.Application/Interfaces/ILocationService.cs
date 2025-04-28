@@ -1,9 +1,8 @@
 ﻿using DatabaseSampler.Application.Models;
 
-namespace DatabaseSampler.Application.Interfaces
+namespace DatabaseSampler.Application.Interfaces;
+
+public interface ILocationService
 {
-    public interface ILocationService
-    {
-        Task<Location> LookupPostcodeAsync(string postcode);
-    }
+    Task<Location> LookupPostcodeAsync(string postcode);
 }

@@ -1,9 +1,8 @@
-namespace DatabaseSampler.Application.Tests.TestHttpFactories
-{
-    public class RequestWrapper
-    {
-        public string Uri { get; set; }
+namespace DatabaseSampler.Application.Tests.TestHttpFactories;
 
-        public object ResponseObject { get; set; }
-    }
+public class RequestWrapper
+{
+    public string Uri { get; set; }
+
+    public object ResponseObject { get; set; }
 }

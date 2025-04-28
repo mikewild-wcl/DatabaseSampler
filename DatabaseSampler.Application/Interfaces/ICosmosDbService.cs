@@ -1,9 +1,8 @@
 ﻿using DatabaseSampler.Application.Models;
 
-namespace DatabaseSampler.Application.Interfaces
+namespace DatabaseSampler.Application.Interfaces;
+
+public interface ICosmosDbService
 {
-    public interface ICosmosDbService
-    {
-        Task<IList<Expense>> GetItemsAsync(string queryString);
-    }
+    Task<IList<Expense>> GetItemsAsync(string queryString);
 }

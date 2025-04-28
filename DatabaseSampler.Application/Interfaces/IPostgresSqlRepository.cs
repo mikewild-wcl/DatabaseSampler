@@ -1,10 +1,9 @@
 ﻿using DatabaseSampler.Application.Models;
 
-namespace DatabaseSampler.Application.Interfaces
+namespace DatabaseSampler.Application.Interfaces;
+
+public interface IPostgresSqlRepository
 {
-    public interface IPostgresSqlRepository
-    {
-        Task<int> AddStudentAsync(Student student);
-        Task<IList<Student>> GetStudentsAsync();
-    }
+    Task<int> AddStudentAsync(Student student);
+    Task<IList<Student>> GetStudentsAsync();
 }

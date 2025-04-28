@@ -1,7 +1,6 @@
-﻿namespace DatabaseSampler.Application.Interfaces
+﻿namespace DatabaseSampler.Application.Interfaces;
+
+public interface ISearchService
 {
-    public interface ISearchService
-    {
-        Task Index();
-    }
+    Task Index();
 }
