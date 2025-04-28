@@ -2,7 +2,7 @@
 
 A site with samples for multiple databases
 
-The following needs to be in the configuration table:
+The following needs to be in `appsettings.json` to run on a local machine:
 
 ```
   "SqlConnectionString": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Locations;Integrated Security=True;MultipleActiveResultSets=True;",
@@ -17,7 +17,15 @@ The following needs to be in the configuration table:
 		"DbPassword": "YourPasswordHere"
   },
   "CosmosConnectionString": "TODO",
-
+  "CosmosConnectionString": "<connection_string_>",
+  "CosmosConfig": {
+    "EndpointUri": "https://localhost:8081/",
+    "AuthorizationKey": "<key>",
+    "DatabaseId": "ToDoList",
+    "ExpenseCollectionId": "Items"
+  },
+  "RedisConnectionString": "localhost:6379",
+  "SqlConnectionString": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Locations;Integrated Security=True;MultipleActiveResultSets=True;"
 ```
 
 Make sure there is a PostgresSQL database matching the connection string (e.g. *students*).
@@ -59,6 +67,22 @@ GO
 CREATE SPATIAL INDEX [SPATIAL_PostcodeLookup_Location] 
    ON [dbo].[PostcodeLookup](Location);
 GO
+```
+
+
+## Functions setup
+
+Add `local.settings.json` file with:
+```
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "PostgreSQLConnectionString": "server=localhost;port=5432;userid=postgres;database=students;",
+    "PostgreSQLDbPassword": ""
+  }
+}
 ```
 
 
