@@ -26,4 +26,9 @@
     <ProjectReference Include="..\DatabaseSampler.Application\DatabaseSampler.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="FluentAssertions" />
+    <Using Include="Xunit" />
+  </ItemGroup>
+
 </Project>

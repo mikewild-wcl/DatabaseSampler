@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DatabaseSampler.Application.Interfaces;
+﻿using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Models;
 using Microsoft.Azure.Cosmos;
 

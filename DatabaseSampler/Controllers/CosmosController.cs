@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using DatabaseSampler.Application.Interfaces;
+﻿using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

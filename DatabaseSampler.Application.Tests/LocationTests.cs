@@ -1,9 +1,6 @@
-using System.Threading.Tasks;
 using DatabaseSampler.Application.Messages;
 using DatabaseSampler.Application.Services;
 using DatabaseSampler.Application.Tests.TestHttpFactories;
-using FluentAssertions;
-using Xunit;
 
 namespace DatabaseSampler.Application.Tests
 {

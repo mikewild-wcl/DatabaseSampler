@@ -1,5 +1,4 @@
-﻿using System;
-using Bogus;
+﻿using Bogus;
 using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Models;
 

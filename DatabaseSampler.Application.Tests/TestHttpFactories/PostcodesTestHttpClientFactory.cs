@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
 using DatabaseSampler.Application.Messages;
 
 namespace DatabaseSampler.Application.Tests.TestHttpFactories

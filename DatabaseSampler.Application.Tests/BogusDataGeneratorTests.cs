@@ -1,6 +1,4 @@
 using DatabaseSampler.Application.DataGenerator;
-using FluentAssertions;
-using Xunit;
 
 namespace DatabaseSampler.Application.Tests
 {

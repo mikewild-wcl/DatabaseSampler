@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using DatabaseSampler.Application.Interfaces;
+﻿using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Models;
 
 namespace DatabaseSampler.Application.Services

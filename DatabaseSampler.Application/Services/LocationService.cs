@@ -1,9 +1,6 @@
-﻿using System;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
-using System.Threading.Tasks;
 using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Messages;
 using DatabaseSampler.Application.Models;

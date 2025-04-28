@@ -1,7 +1,5 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text.Json;
-using System.Threading.Tasks;
 using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Models;
 using DatabaseSampler.Application.ViewModels;

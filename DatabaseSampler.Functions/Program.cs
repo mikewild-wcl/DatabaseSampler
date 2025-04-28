@@ -1,5 +1,4 @@
-﻿using System;
-using DatabaseSampler.Application.Data;
+﻿using DatabaseSampler.Application.Data;
 using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Services;
 using Microsoft.EntityFrameworkCore;

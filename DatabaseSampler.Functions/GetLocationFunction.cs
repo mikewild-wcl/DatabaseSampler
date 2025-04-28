@@ -1,6 +1,4 @@
-using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using DatabaseSampler.Application.Interfaces;

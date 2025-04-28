@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DatabaseSampler.Application.Models
+﻿namespace DatabaseSampler.Application.Models
 {
     public class Student
     {

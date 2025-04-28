@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using DatabaseSampler.Application.Models;
+﻿using DatabaseSampler.Application.Models;
 
 namespace DatabaseSampler.Application.Interfaces
 {
