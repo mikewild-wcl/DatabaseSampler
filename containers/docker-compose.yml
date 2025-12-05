@@ -9,7 +9,7 @@ services:
       - 6379:6379
     networks:
       - redis-network
-    volumes:
+    volumes:    
       - redisdata:/data
 volumes:
   redisdata:

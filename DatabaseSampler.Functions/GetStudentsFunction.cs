@@ -1,34 +1,38 @@
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
+using System.Net;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using DatabaseSampler.Application.Interfaces;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
 
-namespace DatabaseSampler.Functions
+namespace DatabaseSampler.Functions;
+
+public class GetStudentsFunction
 {
-    public class GetStudentsFunction
+    private readonly IPostgresSqlService _postgresSqlService;
+
+    public GetStudentsFunction(IPostgresSqlService postgresSqlService)
     {
-        private readonly IPostgresSqlService _postgresSqlService;
+        _postgresSqlService = postgresSqlService;
+    }
 
-        public GetStudentsFunction(IPostgresSqlService postgresSqlService)
-        {
-            _postgresSqlService = postgresSqlService;
-        }
+    [Function("GetStudents")]
+    public async Task<HttpResponseData> GetStudents(
+        [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] 
+        HttpRequestData req,
+        FunctionContext executionContext)
+    {
+        var logger = executionContext.GetLogger("HttpFunction");
+        logger.LogInformation("GetStudents HTTP trigger function processed a request.");
+        
+        var data = await _postgresSqlService.GetStudentsAsync();
 
-        [FunctionName("GetStudents")]
-        public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            log.LogInformation("C# HTTP trigger function processed a request.");
-            
-            var data = await _postgresSqlService.GetStudentsAsync();
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        response.Headers.Add("Content-Type", "application/json");
 
-            var serializedData = JsonSerializer.Serialize(data);
-            return new JsonResult(serializedData);
-        }
+        var json = JsonSerializer.Serialize(data);
+        await response.WriteStringAsync(json);
+
+        return response;
     }
 }
