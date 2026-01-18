@@ -1,11 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
-	<OutputType>Exe</OutputType>
-	<!--<_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>-->
-    <ImplicitUsings>enable</ImplicitUsings>
-	<Nullable>enable</Nullable>
+    <OutputType>Exe</OutputType>
+	  <!--<_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>-->
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Azure.Identity" />
