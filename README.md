@@ -2,10 +2,10 @@
 
 A site with samples for multiple databases
 
-The following needs to be in the configuration table:
+The following needs to be in `appsettings.json` to run on a local machine:
 
 ```
-  "SqlConnectionString": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Matching;Integrated Security=True;MultipleActiveResultSets=True;",
+  "SqlConnectionString": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Locations;Integrated Security=True;MultipleActiveResultSets=True;",
   "AzureSearchConfiguration":
   {
     "SearchServiceName": "Put your search service name here",
@@ -17,20 +17,35 @@ The following needs to be in the configuration table:
 		"DbPassword": "YourPasswordHere"
   },
   "CosmosConnectionString": "TODO",
-
+  "CosmosConnectionString": "<connection_string_>",
+  "CosmosConfig": {
+    "EndpointUri": "https://localhost:8081/",
+    "AuthorizationKey": "<key>",
+    "DatabaseId": "ToDoList",
+    "ExpenseCollectionId": "Items"
+  },
+  "RedisConnectionString": "localhost:6379",
+  "SqlConnectionString": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Locations;Integrated Security=True;MultipleActiveResultSets=True;"
 ```
 
-Make sure there is a PostgresSQL database matching the connection string (e.g. *students*)
+Make sure there is a PostgresSQL database matching the connection string (e.g. *students*).
+```
+DROP DATABASE IF EXISTS students;
+CREATE DATABASE students;
+```
 
-Set up entities:
+Set up entities: 
+Make sure the main web project is set as the startup project, and in the Package Manager Console set the Default Project to DatabaseSampler.Application. Run 
 ```
 Add-Migration InitialStudentEntities -Context DatabaseSampler.Application.Data.StudentDbContext 
 Update-Database -Context DatabaseSampler.Application.Data.StudentDbContext
 ```
 
-To save postcode results in the database, create a table:
+Create a SQL Server database and table:
 ```
-
+DROP DATABASE Locations;
+GO
+CREATE DATABASE Locations;
 --DROP TABLE [dbo].[PostcodeLookup]
 GO
 --TODO: Consider Postcode as Primary Key    
@@ -52,6 +67,22 @@ GO
 CREATE SPATIAL INDEX [SPATIAL_PostcodeLookup_Location] 
    ON [dbo].[PostcodeLookup](Location);
 GO
+```
+
+
+## Functions setup
+
+Add `local.settings.json` file with:
+```
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "PostgreSQLConnectionString": "server=localhost;port=5432;userid=postgres;database=students;",
+    "PostgreSQLDbPassword": ""
+  }
+}
 ```
 
 
@@ -155,5 +186,31 @@ To see logs in the container use
 or to see an interactive view of logs 
 
 `docker logs -f redis`
+
+
+### Functions in .NET 5.0
+
+See
+ - Announcement: 
+    - https://techcommunity.microsoft.com/t5/apps-on-azure/net-on-azure-functions-roadmap/ba-p/2197916
+	- https://docs.microsoft.com/en-gb/azure/azure-functions/dotnet-isolated-process-developer-howtos?pivots=development-environment-vscode&tabs=browser
+	- https://docs.microsoft.com/en-gb/azure/azure-functions/dotnet-isolated-process-guide
+ - Older references - these use pre-release code
+   - https://codetraveler.io/2021/02/12/creating-azure-functions-using-net-5/
+   - https://mattjameschampion.com/2020/12/23/so-you-want-to-run-azure-functions-using-net-5/
+
+
+Until VS2019 is updated, the functions project cannot be run from there. 
+
+Install the latest functions tools:
+```
+npm i -g azure-functions-core-tools@3 --unsafe-perm true
+```
+
+Then run from the project directory using
+```
+func host start --verbose
+```
+
 
 

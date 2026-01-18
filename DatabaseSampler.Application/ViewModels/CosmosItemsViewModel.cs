@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using DatabaseSampler.Application.Models;
+﻿using DatabaseSampler.Application.Models;
 
-namespace DatabaseSampler.Application.ViewModels
+namespace DatabaseSampler.Application.ViewModels;
+
+public class CosmosItemsViewModel
 {
-    public class CosmosItemsViewModel
-    {
-        public IList<Expense> Expenses { get; set; }
-    }
+    public IList<Expense> Expenses { get; set; }
 }
