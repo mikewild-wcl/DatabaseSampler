@@ -32,7 +32,7 @@ public class LocationTests
             }
         };
 
-        var httpClient = new PostcodesTestHttpClientFactory()
+        using var httpClient = new PostcodesTestHttpClientFactory()
             .Get("SW1A 2AA", true, responseData,
                 false, null);
 
@@ -67,7 +67,7 @@ public class LocationTests
             TerminatedMonth = "6"
         };
 
-        var httpClient = new PostcodesTestHttpClientFactory()
+        using var httpClient = new PostcodesTestHttpClientFactory()
             .Get("AB1 0AX", false, null,
                 true, terminatedPostcodeResponseData);
 
