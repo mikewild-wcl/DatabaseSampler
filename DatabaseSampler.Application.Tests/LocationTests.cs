@@ -42,15 +42,15 @@ public class LocationTests
 
         var result = await service.LookupPostcodeAsync("SW1A 2AA");
 
-        result.Should().NotBeNull();
+        result.ShouldNotBeNull();
 
-        result.Postcode.Should().Be("SW1A 2AA");
-        result.Latitude.Should().Be(51.50354);
-        result.Longitude.Should().Be(-0.127695);
-        result.DistrictCode.Should().Be("E09000033");
-        result.IsTerminated.Should().BeFalse();
-        result.TerminatedYear.Should().BeNull();
-        result.TerminatedMonth.Should().BeNull();
+        result.Postcode.ShouldBe("SW1A 2AA");
+        result.Latitude.ShouldBe(51.50354);
+        result.Longitude.ShouldBe(-0.127695);
+        result.DistrictCode.ShouldBe("E09000033");
+        result.IsTerminated.ShouldBeFalse();
+        result.TerminatedYear.ShouldBeNull();
+        result.TerminatedMonth.ShouldBeNull();
     }
 
     [Fact]
@@ -75,14 +75,14 @@ public class LocationTests
 
         var result = await service.LookupPostcodeAsync("AB1 0AX");
 
-        result.Should().NotBeNull();
+        result.ShouldNotBeNull();
 
-        result.Postcode.Should().Be("AB1 0AX");
-        result.Latitude.Should().Be(57.095679);
-        result.Longitude.Should().Be(-2.24788);
-        result.DistrictCode.Should().BeNull();
-        result.IsTerminated.Should().BeTrue();
-        result.TerminatedYear.Should().Be(1996);
-        result.TerminatedMonth.Should().Be(6);
+        result.Postcode.ShouldBe("AB1 0AX");
+        result.Latitude.ShouldBe(57.095679);
+        result.Longitude.ShouldBe(-2.24788);
+        result.DistrictCode.ShouldBeNull();
+        result.IsTerminated.ShouldBeTrue();
+        result.TerminatedYear.ShouldBe((short)1996);
+        result.TerminatedMonth.ShouldBe((short)6);
     }
 }

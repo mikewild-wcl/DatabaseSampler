@@ -11,10 +11,10 @@ public class BogusDataGeneratorTests
 
         var result = generator.CreateStudent();
 
-        result.Should().NotBeNull();
+        result.ShouldNotBeNull();
 
-        result.Id.Should().Be(0);
-        result.FirstName.Should().NotBeNull();
-        result.LastName.Should().NotBeNull();
+        result.Id.ShouldBe(0);
+        result.FirstName.ShouldNotBeNull();
+        result.LastName.ShouldNotBeNull();
     }
 }
