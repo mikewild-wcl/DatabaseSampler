@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Build.props" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Solution Items/containers/">
+    <File Path="containers/docker-compose.yml" />
+  </Folder>
+  <Project Path="DatabaseSampler.Application.Tests/DatabaseSampler.Application.Tests.csproj" />
+  <Project Path="DatabaseSampler.Application/DatabaseSampler.Application.csproj" />
+  <Project Path="DatabaseSampler.Functions/DatabaseSampler.Functions.csproj" />
+  <Project Path="DatabaseSampler/DatabaseSampler.csproj" />
+</Solution>
