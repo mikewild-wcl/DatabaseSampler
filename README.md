@@ -2,7 +2,19 @@
 
 A site with samples for multiple databases
 
+## Testing
+
+Tests use **xUnit** + **Shouldly**.
+
+Run all tests:
+
+```
+dotnet test
+```
+
 The following needs to be in `appsettings.json` to run on a local machine:
+
+> Note: do not commit secrets. Prefer environment variables or user secrets for sensitive values.
 
 ```
   "SqlConnectionString": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Locations;Integrated Security=True;MultipleActiveResultSets=True;",
@@ -16,17 +28,17 @@ The following needs to be in `appsettings.json` to run on a local machine:
 		"ConnectionString": "server=localhost;port=5432;userid=postgres;database=students;",
 		"DbPassword": "YourPasswordHere"
   },
-  "CosmosConnectionString": "TODO",
-  "CosmosConnectionString": "<connection_string_>",
+  "CosmosConnectionString": "<cosmos_connection_string>",
   "CosmosConfig": {
     "EndpointUri": "https://localhost:8081/",
-    "AuthorizationKey": "<key>",
+    "AuthorizationKey": "<cosmos_key>",
     "DatabaseId": "ToDoList",
     "ExpenseCollectionId": "Items"
   },
   "RedisConnectionString": "localhost:6379",
-  "SqlConnectionString": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Locations;Integrated Security=True;MultipleActiveResultSets=True;"
 ```
+
+> Note: package versions are managed centrally in `Directory.Packages.props`.
 
 Make sure there is a PostgresSQL database matching the connection string (e.g. *students*).
 ```
@@ -69,7 +81,6 @@ CREATE SPATIAL INDEX [SPATIAL_PostcodeLookup_Location]
 GO
 ```
 
-
 ## Functions setup
 
 Add `local.settings.json` file with:
@@ -84,7 +95,6 @@ Add `local.settings.json` file with:
   }
 }
 ```
-
 
 ## Articles
 
@@ -131,7 +141,6 @@ inner join	QualificationRouteMapping qrm
 on			qrm.QualificationId = q.Id
 inner join	Route r
 on			r.Id = qrm.RouteId
-
 
 ## Developer setup
 
@@ -187,8 +196,7 @@ or to see an interactive view of logs
 
 `docker logs -f redis`
 
-
-### Functions in .NET 5.0
+### Functions (dotnet-isolated)
 
 See
  - Announcement: 
@@ -200,11 +208,17 @@ See
    - https://mattjameschampion.com/2020/12/23/so-you-want-to-run-azure-functions-using-net-5/
 
 
-Until VS2019 is updated, the functions project cannot be run from there. 
+Install Azure Functions Core Tools:
+See Azure Functions Core Tools | [Installing](https://github.com/Azure/azure-functions-core-tools/blob/v4.x/README.md#installing)
+with npm:
 
-Install the latest functions tools:
 ```
-npm i -g azure-functions-core-tools@3 --unsafe-perm true
+npm i -g azure-functions-core-tools@4 --unsafe-perm true
+```
+or winget: 
+```
+winget install Microsoft.Azure.FunctionsCoreTools
+https://learn.microsoft.com/en-gb/azure/azure-functions/functions-run-local?tabs=windows%2Cisolated-process%2Cnode-v4%2Cpython-v2%2Chttp-trigger%2Ccontainer-apps&pivots=programming-language-csharp#install-the-azure-functions-core-tools
 ```
 
 Then run from the project directory using

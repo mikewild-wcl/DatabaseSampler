@@ -148,10 +148,8 @@ All the tests run correctly so it's time to move to the next step.
 
 ## Copiiot
 
-Since I'm using Copilot a lot thse days, I asked it to create a copilot-instructions file for me. That has an overview of the project as it is now, and some simple 
+Since I'm using Copilot a lot thse days, I asked it to create a copilot-instructions file for me, then added a few adjustments. Hopfully we'll have less chance of Copilot going off on long tangents now.
 
-- DO NOT add using statements when the project .csproj file as a <Using include="" /> for that namespace.
-- 
 
 ## Adding Aspire AppHost and ServiceDefaults
 
