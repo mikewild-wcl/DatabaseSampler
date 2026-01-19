@@ -8,8 +8,10 @@
   <Folder Name="/Solution Items/containers/">
     <File Path="containers/docker-compose.yml" />
   </Folder>
+  <Project Path="DatabaseSampler.AppHost/DatabaseSampler.AppHost.csproj" Id="8da0c738-bf6b-4231-9973-3ebb5e7106a1" />
   <Project Path="DatabaseSampler.Application.Tests/DatabaseSampler.Application.Tests.csproj" />
   <Project Path="DatabaseSampler.Application/DatabaseSampler.Application.csproj" />
   <Project Path="DatabaseSampler.Functions/DatabaseSampler.Functions.csproj" />
+  <Project Path="DatabaseSampler.ServiceDefaults/DatabaseSampler.ServiceDefaults.csproj" Id="777d9446-185b-45be-9883-faf31050ddde" />
   <Project Path="DatabaseSampler/DatabaseSampler.csproj" />
 </Solution>

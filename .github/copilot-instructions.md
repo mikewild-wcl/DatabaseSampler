@@ -35,6 +35,9 @@
 ## Project-Specific Practices
 - For Azure Functions, follow the function signature and binding conventions.
 - For configuration, use appsettings and secrets. **DO NOT** write secrets into files in the solution directories.
+- For newly added projects:
+- Remove `<TargetFramework>`, `<ImplicitUsings>`, and `<Nullable>` properties.
+- Ensure package references use central project management.
 
 ## .NET / project guidelines
 - Projects target `.NET 10` (inherited from `Directory.Build.props` unless a project overrides it).
