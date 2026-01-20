@@ -30,9 +30,4 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <!-- Allow underscores in test names -->
-    <NoWarn>CA1707;</NoWarn>
-  </PropertyGroup>
-  
 </Project>

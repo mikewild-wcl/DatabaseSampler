@@ -136,12 +136,11 @@ In the tests I now have the following for Global usings
 
 Any using statements in tests that references those can be removed.
 
-I also added a NoWarn to the test projects to supress warnings about underscores in names.
+I also added this to `.editorconfig` to stop the warnings about underscores in test names:
 ```
-<PropertyGroup>
-  <!-- Allow underscores in test names -->
-  <NoWarn>CA1707;</NoWarn>
-</PropertyGroup>
+# Unit test project rules
+[**/*Tests/**.cs]
+dotnet_diagnostic.CA1707.severity = none # Allow underscores in test names
 ```
 
 All the tests run correctly so it's time to move to the next step.
@@ -154,23 +153,17 @@ Since I'm using Copilot a lot thse days, I asked it to create a copilot-instruct
 
 Now it's time for the fun part - add an Aspire AppHost and an Aspire Service Defaults project. The .csproj files need monor tidying to make sure `TargetFramework`, `ImplicitUsings` and ``Nullable` are removed, and new nuget package references need to be copied to `Directory.Packages.props`.
 
-There are a couple of annoying static type checks in ServiceDefaults, so I always add:
-
-- a pragma to stop errors about the namespace:
+There are a couple of annoying static type checks in ServiceDefaults, so I always add more error suppressed in `.editorconfig`, like so:
   ``` 
-  #pragma warning disable IDE0130 // Namespace does not match folder structure (IDE0130)
-  namespace Microsoft.Extensions.Hosting;
-  #pragma warning restore IDE0130
-  ```
-- suppressions on the Extensions class:
-  ``` 
-[SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "Allowed in this project for now", Scope = "member", Target = "~M:Microsoft.Extensions.Hosting.Extensions.MapDefaultEndpoints(Microsoft.AspNetCore.Builder.WebApplication)~Microsoft.AspNetCore.Builder.WebApplication")]
-[SuppressMessage("Globalization", "CA1307:Specify StringComparison for clarity", Justification = "Allowed in this project for now", Scope = "member", Target = "~M:Microsoft.Extensions.Hosting.Extensions.ConfigureOpenTelemetry``1(``0)~``0")]
-[SuppressMessage("Style", "CA1724: The type name Extensions conflicts in whole or in part with the namespace name 'Microsoft.AspNetCore.Builder.Extensions'", Justification = "This is extending the target namespace and is not an error", Scope = "type", Target = "~T:Microsoft.Extensions.Hosting.Extensions")]
-[SuppressMessage("Minor Code Smell", "S125:Remove this commented out code", Justification = "Allowing comments in this class", Scope = "type", Target = "~T:Microsoft.Extensions.Hosting.Extensions")]
+# Aspire ServiceDefaults project rules
+[**/*ServiceDefaults/**.cs] 
+dotnet_style_namespace_match_folder = false:silent # IDE0130
+dotnet_diagnostic.CA1062.severity = none # CA1062:Validate arguments of public methods
+dotnet_diagnostic.CA1307.severity = none # CA1307:Specify StringComparison for clarity
+dotnet_diagnostic.S125.severity = silent # S125:Remove this commented out code
 ``` 
  
- `DatabaseSampler` and `DatabaseSampler.Functions` are going to use ServiceDefaults, so add project references in them to the new `DatabaseSampler.ServiceDefaults\ project. Update nuget packages in case the versions from the Aspire template were out of date.
+`DatabaseSampler` and `DatabaseSampler.Functions` are going to use ServiceDefaults, so add project references in them to the new `DatabaseSampler.ServiceDefaults\ project. Update nuget packages in case the versions from the Aspire template were out of date.
 
 
 ## Adding databases
