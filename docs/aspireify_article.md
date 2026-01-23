@@ -162,8 +162,31 @@ dotnet_diagnostic.CA1062.severity = none # CA1062:Validate arguments of public m
 dotnet_diagnostic.CA1307.severity = none # CA1307:Specify StringComparison for clarity
 dotnet_diagnostic.S125.severity = silent # S125:Remove this commented out code
 ``` 
- 
+
+I'll also add a Shared project with some shared constants so we don't have magic strings all over the place. To avoid build errors this needs to be added to `editorconfig` too:
+```
+# Shared project rules
+[**/*Shared/**.cs]
+# CA1716: Identifiers should not match keywords. Allow in NameSpace to fix conflict with reserved language keyword 'Shared'
+dotnet_code_quality.CA1716.analyzed_symbol_kinds = NamedType, Method, Property, Event, Parameter
+```
+
+The Shared project needs to be added as a project reference to `AppHost`, `DatabaseSampler` and `DatabaseSampler.Functions`. 
+In `AppHost.csproj` the project reference needs to marked as not being an Aspire resource:
+```
+    <ProjectReference Include="..\src\DatabaseSampler.Shared\DatabaseSampler.Shared.csproj" IsAspireProjectResource="false" />
+```
+
 `DatabaseSampler` and `DatabaseSampler.Functions` are going to use ServiceDefaults, so add project references in them to the new `DatabaseSampler.ServiceDefaults\ project. Update nuget packages in case the versions from the Aspire template were out of date.
+
+The AppHost needs references to the website and functions, so add those references then edit `AppHost.csproj` to set project metadata type names, like this:
+
+```
+    <ProjectReference Include="..\DatabaseSampler.Functions\DatabaseSampler.Functions.csproj" AspireProjectMetadataTypeName="Functions" />
+    <ProjectReference Include="..\DatabaseSampler\DatabaseSampler.csproj" AspireProjectMetadataTypeName="Website" />
+```
+
+Those names can be used in `AppHost.cs` to make the code easier to read.
 
 
 ## Adding databases

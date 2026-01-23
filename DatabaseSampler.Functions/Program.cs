@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Npgsql;
 
-var host = new HostBuilder()
+var host = new HostBuilder()    
     .ConfigureFunctionsWorkerDefaults()
     .ConfigureServices(s =>
     {

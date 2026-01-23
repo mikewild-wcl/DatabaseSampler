@@ -14,4 +14,5 @@
   <Project Path="DatabaseSampler.Functions/DatabaseSampler.Functions.csproj" />
   <Project Path="DatabaseSampler.ServiceDefaults/DatabaseSampler.ServiceDefaults.csproj" Id="777d9446-185b-45be-9883-faf31050ddde" />
   <Project Path="DatabaseSampler/DatabaseSampler.csproj" />
+  <Project Path="src/DatabaseSampler.Shared/DatabaseSampler.Shared.csproj" Id="84a8bbd0-1697-48af-9084-d11ff3ae2c6f" />
 </Solution>
