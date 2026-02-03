@@ -193,11 +193,96 @@ Those names can be used in `AppHost.cs` to make the code easier to read.
 
 ## Redis
 
+See the [Redis integration](https://aspire.dev/integrations/caching/redis/) guide.
+
 In the old version, I had a docker file to bring up Redis but it was a manaul process. Now all we need to do is include Redis in the AppHost:
+```
+var redis = builder.AddRedis(ResourceNames.Redis);
+```
+
+and pass it to the web project, then in the web project, remove
+```
+        var redisConnectionString = Configuration["RedisConnectionString"];
+        services.AddStackExchangeRedisCache(options => {
+            options.Configuration = redisConnectionString;
+            options.InstanceName = "";
+       });
+```
+and replace it with 
+```
+        services.AddRedisCache(appHost.GetRedisConnectionString());
+```
+
+The `containers` folder with `docker-compose.yml` can be removed from the solution and deleted from disk.
+
+
+## Web project startup
+
+The startup code in Program.cs and Startup.cs is out of date - there's even a build warning saying that IHost is obsolete. WebHostBuilder has been [deprecated](https://github.com/aspnet/Announcements/issues/526) so we need to replace everything with a new builder. 
+This probably makes things simpler because the old Startup code can also be thrown away.
+
+Change Program.cs to this:
+```
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+
+builder.Services.AddControllersWithViews();
+
+var app = builder.Build();
+
+app.MapDefaultEndpoints();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapStaticAssets();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}")
+    .WithStaticAssets();
+
+await app.RunAsync().ConfigureAwait(true);
+```
+
+`Startup.cs` can be deleted.
+
+## Function app
+
+The function app startup can also be rewritten to use the new `FunctionsApplicationBuilder`, and also needs to use Aspire ServiceDefaults. 
 ```
 ```
 
-The `containers` folder and any docker files can be removed.
+Several nuget packages can be removed from this project after adding the Aspire packages, including:
+```
+
+```
+
+The `local.settings.json` file was previously in .gitignore, but now that settings come from AppHost the .gitignore file can be removed from the functions project and if present these lines can be removed:
+```
+    "PostgreSQLConnectionString": "...",
+    "PostgreSQLDbPassword": "..."
+```
+
+
+All settings will come from AppHost now, so the following files are no longer needed in the projects and can be removed or commented out of `.gitignore`:
+```
+# Local configuration files
+# appsettings.Development.json
+# local.settings.json
+```
+
+
+
 
 ## TODO 
 
@@ -216,9 +301,18 @@ See [Missing Newtonsoft.Json Reference](https://learn.microsoft.com/en-us/azure/
 
 
 
+
+
 ## Links
 
  - Aspireify DatabaseSampler - emulators for now, next step - deploy to Azure
 	[aspireify.NET](https://aspireify.net/)
+
 	https://aspireify.net/a/241216/add-sql-server-database-with-seed-data-to-.net-aspire-during-app-startup
 	https://aspireify.net/a/250709/how-to-have-gitlab-cicd-for-a-.net-aspire-project
+
+
+** Icons **
+See https://blog.leadingedje.com/post/aspire/cozydashboarding.html
+    https://storybooks.fluentui.dev/react/?path=/docs/icons-catalog--docs
+.WithIconName("Globe")

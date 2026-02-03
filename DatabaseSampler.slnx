@@ -1,12 +1,10 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
+    <File Path=".gitignore" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
     <File Path="README.md" />
-  </Folder>
-  <Folder Name="/Solution Items/containers/">
-    <File Path="containers/docker-compose.yml" />
   </Folder>
   <Project Path="DatabaseSampler.AppHost/DatabaseSampler.AppHost.csproj" Id="8da0c738-bf6b-4231-9973-3ebb5e7106a1" />
   <Project Path="DatabaseSampler.Application.Tests/DatabaseSampler.Application.Tests.csproj" />

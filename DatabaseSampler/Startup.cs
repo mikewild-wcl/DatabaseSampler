@@ -10,6 +10,7 @@ using Npgsql;
 
 namespace DatabaseSampler;
 
+/*
 public class Startup
 {
     public IConfiguration Configuration { get; }
@@ -29,11 +30,13 @@ public class Startup
         services.AddMemoryCache();
 
         //Configure Redis distributed cache
-        var redisConnectionString = Configuration["RedisConnectionString"];
-        services.AddStackExchangeRedisCache(options => {
-            options.Configuration = redisConnectionString;
-            options.InstanceName = "";
-        });
+        //var redisConnectionString = Configuration["RedisConnectionString"];
+        //services.AddStackExchangeRedisCache(options => {
+        //    options.Configuration = redisConnectionString;
+        //    options.InstanceName = "";
+        //});
+        //services.AddRedisCache(appHost.GetRedisConnectionString());
+        //TODO: builder.AddRedisClient(connectionName: "cache");
 
         services.AddTransient<IDataGenerator, BogusDataGenerator>();
 
@@ -157,3 +160,4 @@ public class Startup
         });
     }
 }
+*/

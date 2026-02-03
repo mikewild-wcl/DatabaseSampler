@@ -1,24 +1,26 @@
-﻿using DatabaseSampler.Application.Interfaces;
+﻿using DatabaseSampler.Application.Configuration;
+using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Models;
 using Microsoft.Azure.Cosmos;
 
 namespace DatabaseSampler.Application.Services;
 
-public class CosmosDbService : ICosmosDbService
+public class CosmosDbService(
+    CosmosClient dbClient,
+    CosmosDbConfiguration config) : ICosmosDbService
 {
-    private readonly Container _container;
-
-    public CosmosDbService(
-        CosmosClient dbClient,
-        string databaseName,
-        string containerName)
-    {
-        _container = dbClient.GetContainer(databaseName, containerName);
-    }
+    private readonly CosmosClient _dbClient = dbClient;
+    private readonly CosmosDbConfiguration _config = config;
 
     public async Task<IList<Expense>> GetItemsAsync(string queryString)
     {
-        var query = _container.GetItemQueryIterator<Expense>(new QueryDefinition(queryString));
+        //var databaseResponse = await _dbClient.CreateDatabaseIfNotExistsAsync(_config.DatabaseId).ConfigureAwait(true);
+        //var partitionKey = "/expense/name";
+        //var containerResponse = await databaseResponse.Database.CreateContainerIfNotExistsAsync(_config.ExpenseCollectionId, partitionKey).ConfigureAwait(true);
+
+        var container = _dbClient.GetContainer(_config.DatabaseId, _config.ExpenseCollectionId);
+
+        var query = container.GetItemQueryIterator<Expense>(new QueryDefinition(queryString));
         var results = new List<Expense>();
         while (query.HasMoreResults)
         {
@@ -62,5 +64,5 @@ public class CosmosDbService : ICosmosDbService
     //    var replaceOfferResponse = await client.ReplaceOfferAsync(newOffer);
 
     //    return replaceOfferResponse.Resource;
-    //}
+    //}    
 }

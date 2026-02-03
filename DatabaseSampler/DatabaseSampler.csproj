@@ -3,24 +3,27 @@
   <ItemGroup>
     <ProjectReference Include="..\DatabaseSampler.Application\DatabaseSampler.Application.csproj" />
     <ProjectReference Include="..\DatabaseSampler.ServiceDefaults\DatabaseSampler.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\src\DatabaseSampler.Shared\DatabaseSampler.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.Cosmos" />
+    <PackageReference Include="Aspire.Microsoft.Azure.Cosmos" />
+    <!--<PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.Cosmos" />-->
+    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="Aspire.StackExchange.Redis" />
-    <PackageReference Include="Microsoft.Azure.Cosmos" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <!--<PackageReference Include="Microsoft.Azure.Cosmos" />-->
+    <!--<PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />-->
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
+    <!--<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />-->
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <!--<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />-->
   </ItemGroup>
 
 </Project>
