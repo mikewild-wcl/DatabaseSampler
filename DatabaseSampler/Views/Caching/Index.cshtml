@@ -10,13 +10,14 @@
 
 <form method="post">
     <div class="form-group">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="input-group col-sm-2">
-            <label asp-for="Postcode">Postcode</label>
-            <input type="text" class="form-control" asp-for="Postcode" placeholder="Additional Info" />
-            <span class="field-validation-error text-danger" 
-                  asp-validation-for="Postcode">The postcode is required.</span>
+            <label class="form-label" asp-for="Postcode">Postcode</label>
+            <input type="text" class="form-control" asp-for="Postcode" />
+            <span asp-validation-for="Postcode" class="text-danger"></span>
         </div>
     </div>
+
     @if (Model.ElapsedTimeForLookup.HasValue)
     {
         <div class="form-group">
@@ -29,11 +30,28 @@
                     Result retrieved from cache.
                 </p>
             }
+
+            <div class="mt-2">
+                <p>
+                    @if (Model.Latitude is not null && Model.Longitude is not null)
+                    {
+                        <span><strong>Latitude:</strong> @Model.Latitude.Value.ToString("0.######")</span>
+                        <span>, <strong> Longitude:</strong> @Model.Longitude.Value.ToString("0.######") </span>
+                    }
+@*                     else
+                    {
+                        <span>&nbsp;</span>
+                    }
+ *@                </p>
+
+            </div>
+
         </div>
     }
-<div class="form-group">
-    <button type="submit" class="btn btn-primary btn-sm" asp-action="LookupPostcode">Lookup postcode</button>
-    <button type="submit" class="btn btn-primary btn-sm" asp-action="LookupPostcodeWithMemoryCaching">Lookup using memory cache</button>
-    <button type="submit" class="btn btn-primary btn-sm" asp-action="LookupPostcodeWithDistributedCaching">Lookup using distributed cache</button>
-</div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-sm" asp-action="LookupPostcode">Lookup postcode</button>
+        <button type="submit" class="btn btn-primary btn-sm" asp-action="LookupPostcodeWithMemoryCaching">Lookup using memory cache</button>
+        <button type="submit" class="btn btn-primary btn-sm" asp-action="LookupPostcodeWithDistributedCaching">Lookup using distributed cache</button>
+    </div>
 </form>

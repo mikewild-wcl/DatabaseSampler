@@ -65,9 +65,11 @@ var cosmos = builder.AddAzureCosmosDB(ResourceNames.CosmosDB)
       emulator.WithDataExplorer();
       emulator.WithDataVolume();
       emulator.WithLifetime(ContainerLifetime.Persistent);
-  })
-.AddCosmosDatabase(cosmosDatabaseId)
-.AddContainer(expenseCollectionId, partitionKey);
+  });
+
+cosmos
+    .AddCosmosDatabase(cosmosDatabaseId)
+    .AddContainer(expenseCollectionId, partitionKey);
 
 //Errors... pgcosmos readiness check still waiting for Postgres startu
 //https://github.com/Azure/azure-cosmos-db-emulator-docker/issues/209

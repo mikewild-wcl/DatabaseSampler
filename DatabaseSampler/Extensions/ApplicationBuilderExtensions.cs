@@ -73,6 +73,12 @@ internal static class ApplicationBuilderExtensions
             */
             builder.AddNpgsqlDbContext<StudentDbContext>(connectionName: ResourceNames.PostgresDB);
 
+            var connectionStrings = builder.Configuration.GetSection("ConnectionStrings");
+            foreach (var item in connectionStrings.GetChildren())
+            {
+                System.Diagnostics.Debug.WriteLine($"Connection string {item.Key}={item.Value}");
+            }
+
             //builder.AddCosmosDbContext<MyDbContext>(ResourceNames.CosmosDB);
             builder.AddAzureCosmosClient(ResourceNames.CosmosDB);
 

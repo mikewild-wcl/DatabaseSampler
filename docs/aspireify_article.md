@@ -281,7 +281,36 @@ All settings will come from AppHost now, so the following files are no longer ne
 # local.settings.json
 ```
 
+## Cosmos DB
 
+I've set this up to use the preview emulator image so I can add the Data Explorer. This caused some issues on startup
+
+I had problems getting it to start. In the Aspire console the instance stayed unhelthy, and looking at the console logs it was " pgcosmos readiness check still waiting for Postgres startup".
+Eventually I went to look at the log in the container. Either look for container name and use it in a docker command:
+```
+docker ps | grep cosmos # bash
+docker ps | wsl grep cosmos # works on Windows Terminal
+```
+
+```
+docker exec <container-name> cat /logs/pglog.log
+```
+
+or go to the container in Docker Desktop, fund the Exec tab, run `/bin/bash` and 
+```
+cat /logs/pglog.log
+```
+
+This had an error 
+```
+FATAL:  could not load server certificate file "/home/cosmosdev/cosmosdev.crt": No such file or directory
+```
+
+After some searching, I found I had an old copy of CosmosDBEmulator installed on my machine, so I uninstalled that.
+I then ran `certmgr.msc` (or `certlm.msc`) and looked at Certificates > Personal > Certificates. There were multiple copies of these certificates for localhost. 
+ - CosmosEmulatorSecrets
+ - DocumentDbEmulatorCertificate 
+I deleted those and when I ran the AppHost again everything started correctly.
 
 
 ## TODO 
