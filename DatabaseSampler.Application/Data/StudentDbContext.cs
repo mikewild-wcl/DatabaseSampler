@@ -3,16 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseSampler.Application.Data;
 
-public class StudentDbContext : DbContext
+public class StudentDbContext(DbContextOptions options) : DbContext(options)
 {
-    //public StudentDbContext()
-    //{
-    //}
-
-    public StudentDbContext(DbContextOptions options)
-        : base(options)
-    {
-    }
-
     public DbSet<Student> Students { get; set; }
 }

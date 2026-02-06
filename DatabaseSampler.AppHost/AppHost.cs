@@ -94,8 +94,17 @@ var sqldb = builder.AddSqlServer(ResourceNames.SqlServer)
 
 var redis = builder.AddRedis(ResourceNames.Redis);
 
+var postgresMigration = builder.AddProject<Projects.PostgresMigration>(ResourceNames.PostgresMigration)
+    .WithReference(postgresdb)
+    .WaitFor(postgresdb);
+
+var sqlServerDeployment = builder.AddProject<Projects.SqlServerDeployment>(ResourceNames.SqlServerDeployment)
+    .WithReference(sqldb)
+    .WaitFor(sqldb);
+
 builder.AddAzureFunctionsProject<Projects.Functions>(ResourceNames.FunctionApp)
-    .WithReference(postgresdb);
+    .WithReference(postgresdb)
+    .WaitForCompletion(postgresMigration);
 
 builder.AddProject<Projects.Website>(ResourceNames.WebApp)
     .WithIconName("Globe")
@@ -105,6 +114,8 @@ builder.AddProject<Projects.Website>(ResourceNames.WebApp)
     .WithReference(postgresdb)
     .WithEnvironment($"{AppSettingNames.CosmosDBSection}:{AppSettingNames.CosmosDBDatabaseId}", cosmosDatabaseIdParameter)
     .WithEnvironment($"{AppSettingNames.CosmosDBSection}:{AppSettingNames.CosmosDBExpenseCollectionId}", cosmosExpenseCollectionId)
-    .WaitFor(cosmos);
+    .WaitFor(cosmos)
+    .WaitForCompletion(postgresMigration)
+    .WaitForCompletion(sqlServerDeployment);
 
 await builder.Build().RunAsync().ConfigureAwait(true);

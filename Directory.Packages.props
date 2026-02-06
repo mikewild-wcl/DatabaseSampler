@@ -9,6 +9,7 @@
     <PackageVersion Include="Aspire.Hosting.Redis" Version="13.1.0" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.1.0" />
     <PackageVersion Include="Aspire.Microsoft.Azure.Cosmos" Version="13.1.0" />
+    <PackageVersion Include="Aspire.Microsoft.Data.SqlClient" Version="13.1.0" />
     <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.Cosmos" Version="13.1.0" />
     <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.1.0" />
     <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.1.0" />
@@ -16,6 +17,8 @@
     <PackageVersion Include="Azure.Identity" Version="1.17.1" />
     <PackageVersion Include="Bogus" Version="35.6.5" />
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+    <PackageVersion Include="DbUp" Version="5.0.41" />
+    <PackageVersion Include="DbUp.Extensions.Microsoft.Logging" Version="1.1.0" />
     <PackageVersion Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Azure.Cosmos" Version="3.57.0" />
     <PackageVersion Include="Microsoft.Azure.Functions.Worker" Version="2.51.0" />
@@ -24,13 +27,16 @@
     <PackageVersion Include="Microsoft.Azure.WebJobs.Extensions" Version="5.2.1" />
     <PackageVersion Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="3.3.0" />
     <PackageVersion Include="Microsoft.Azure.WebJobs.Extensions.Storage" Version="5.3.7" />
+    <PackageVersion Include="Microsoft.Data.SqlClient" Version="6.1.4" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="10.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.2.0" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="10.0.2" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.2.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />

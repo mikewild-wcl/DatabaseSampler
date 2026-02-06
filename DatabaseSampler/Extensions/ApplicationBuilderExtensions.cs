@@ -5,12 +5,11 @@ using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Services;
 using DatabaseSampler.Shared;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
 
 namespace DatabaseSampler.Extensions;
 
-[SuppressMessage("Minor Code Smell", "S2325:Methods and properties that don't access instance data should be static", Justification = "Extension members don't need to be static")]
+//[SuppressMessage("Minor Code Smell", "S2325:Methods and properties that don't access instance data should be static", Justification = "Extension members don't need to be static")]
 internal static class ApplicationBuilderExtensions
 {
     extension(IHostApplicationBuilder builder)
@@ -66,11 +65,6 @@ internal static class ApplicationBuilderExtensions
                         .EnableRetryOnFailure()),
                 ServiceLifetime.Transient);
 
-            /*
-            builder.Services
-                .AddDbContext<StudentDbContext>(options =>
-                    options.UseNpgsql(pgBuilder.ConnectionString));
-            */
             builder.AddNpgsqlDbContext<StudentDbContext>(connectionName: ResourceNames.PostgresDB);
 
             var connectionStrings = builder.Configuration.GetSection("ConnectionStrings");

@@ -12,9 +12,11 @@ public static class ResourceNames
 
     public const string Postgres = "postgres";
     public const string PostgresDB = "postgresdb";
+    public const string PostgresMigration = "postgresdb-migration-service";
 
     public const string SqlServer = "sql";
-    public const string SqlDatabase = "database";
+    public const string SqlDatabase = "sqldb";
+    public const string SqlServerDeployment = "sqlserver-deployment";
 
     public const string WebApp = "web";
 }

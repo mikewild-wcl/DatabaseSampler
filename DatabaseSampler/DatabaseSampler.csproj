@@ -3,7 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DatabaseSampler.Application\DatabaseSampler.Application.csproj" />
     <ProjectReference Include="..\DatabaseSampler.ServiceDefaults\DatabaseSampler.ServiceDefaults.csproj" />
-    <ProjectReference Include="..\src\DatabaseSampler.Shared\DatabaseSampler.Shared.csproj" />
+    <ProjectReference Include="..\DatabaseSampler.Shared\DatabaseSampler.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +21,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <!--<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />-->
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+    <!--<PackageReference Include="Microsoft.Extensions.Logging.Debug" />-->
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     <!--<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />-->
   </ItemGroup>

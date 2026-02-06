@@ -1,5 +1,4 @@
 using DatabaseSampler.Extensions;
-using Microsoft.Azure.Cosmos;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -15,8 +15,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DatabaseSampler.Functions\DatabaseSampler.Functions.csproj" AspireProjectMetadataTypeName="Functions" />
+    <ProjectReference Include="..\DatabaseSampler.SqlServer.Deploy\DatabaseSampler.SqlServer.Deploy.csproj" AspireProjectMetadataTypeName="SqlServerDeployment" />
     <ProjectReference Include="..\DatabaseSampler\DatabaseSampler.csproj" AspireProjectMetadataTypeName="Website" />
-    <ProjectReference Include="..\src\DatabaseSampler.Shared\DatabaseSampler.Shared.csproj" IsAspireProjectResource="false" />
+    <ProjectReference Include="..\DatabaseSampler.Postgres.MigrationService\DatabaseSampler.Postgres.MigrationService.csproj" AspireProjectMetadataTypeName="PostgresMigration" />
+    <ProjectReference Include="..\DatabaseSampler.Shared\DatabaseSampler.Shared.csproj" IsAspireProjectResource="false" />
   </ItemGroup>
 
 </Project>

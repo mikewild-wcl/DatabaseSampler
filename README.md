@@ -53,6 +53,32 @@ Add-Migration InitialStudentEntities -Context DatabaseSampler.Application.Data.S
 Update-Database -Context DatabaseSampler.Application.Data.StudentDbContext
 ```
 
+### Using dotnet ef tools:
+
+See [Getting Started with EF Core](https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli)
+
+Install with :
+```
+dotnet tool install --global dotnet-ef
+```
+or update with 
+```
+dotnet tool update --global dotnet-ef
+```
+
+Make sure the project has a reference to Microsoft.EntityFrameworkCore.Design and Microsoft.EntityFrameworkCore.Tools packages, and that the main web project is set as the startup project. Then run the following commands from the project directory:
+To set up the initial migration
+and update the database, run the following commands from the project directory:
+```
+dotnet ef migrations add InitialCreate
+```
+
+You can update the database, directly with 
+```
+dotnet ef database update
+```
+but since we are using Aspire the update will be handled by the Migrations project.
+
 Create a SQL Server database and table:
 ```
 DROP DATABASE Locations;

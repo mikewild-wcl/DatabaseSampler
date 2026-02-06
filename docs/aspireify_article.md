@@ -177,6 +177,8 @@ In `AppHost.csproj` the project reference needs to marked as not being an Aspire
     <ProjectReference Include="..\src\DatabaseSampler.Shared\DatabaseSampler.Shared.csproj" IsAspireProjectResource="false" />
 ```
 
+**NOTE** - the project is not under src/ in the initial version, but will be moved later.
+
 `DatabaseSampler` and `DatabaseSampler.Functions` are going to use ServiceDefaults, so add project references in them to the new `DatabaseSampler.ServiceDefaults\ project. Update nuget packages in case the versions from the Aspire template were out of date.
 
 The AppHost needs references to the website and functions, so add those references then edit `AppHost.csproj` to set project metadata type names, like this:
@@ -190,6 +192,36 @@ Those names can be used in `AppHost.cs` to make the code easier to read.
 
 
 ## Adding databases
+
+Databases for SQL Server and Postgres are now created in the AppHost, so we don't need to include them in any initialisation scripts.
+
+In the old version, there was a manual script to create the Postcodes table in SQL Server, and a manual step to run migrations for Postgres. Both these can be done using database setup projects. All the work could be done in a single service project, but Microsoft recommends separate services so I added
+ - `DatabaseSampler.Postgres.MigrationService` as a new Worker Service that runs Postgres migrations
+ - `DatabaseSampler.SqlServer.Deploy` as a simple console application that uses DbUp to run SQL Server scripts.
+
+I had problems trying to check the migrations so I just deleted the migrations from the Application file and ran this in the web project.
+
+[Apply EF Core migrations in Aspire](https://aspire.dev/integrations/databases/efcore/migrations/)
+
+I followed the example and added a transaction around the migrations, but this failed with 
+
+> A transaction was started before applying migrations. This prevents a database lock to be acquired and hence the database will not be protected from concurrent migration applications. The transactions and execution strategy are already managed by EF as needed. Remove the external transaction.
+
+After removing the transaction it worked.
+
+
+Problem:
+Migration shows error 
+
+
+Problem on create student:
+Microsoft.EntityFrameworkCore.DbUpdateException: 'An error occurred while saving the entity changes. See the inner exception for details.'
+
+```
+dotnet ef migrations add InitialCreate --context StudentDbContext --project ..\DatabaseSampler.Application\DatabaseSampler.Application.csproj
+```
+it was "unable to determine which migrations have been applied. This can happen when your project uses a version of Entity Framework Core lower than 5.0.0 or when an error occurs while accessing the database.
+
 
 ## Redis
 
@@ -323,12 +355,20 @@ I deleted those and when I ran the AppHost again everything started correctly.
 See [Missing Newtonsoft.Json Reference](https://learn.microsoft.com/en-us/azure/cosmos-db/best-practice-dotnet#missing-newtonsoftjson-reference)
   > per Copilot "Added AzureCosmosDisableNewtonsoftJsonCheck to bypass the Azure Cosmos SDK's Newtonsoft.Json check (so build succeeds without explicitly adding Newtonsoft.Json)"
 
+- Move projects into src folder - do this after merge to main to preserve some history.
+
 ## Deploying to Azure
 
 - Parameter to say we are running locally? Or just use IsDevelopment
 - IsPublishing? What does that do?
 
 
+
+## Wrapping up
+
+Aspire made this easy, but removing old code made it harder.
+
+Once I got it running I saw a few things I wasn't happy with. This code was written to help me learn new concepts, but since then I've learned a lot more and I just had to fix some of the gaps.
 
 
 
@@ -339,6 +379,8 @@ See [Missing Newtonsoft.Json Reference](https://learn.microsoft.com/en-us/azure/
 
 	https://aspireify.net/a/241216/add-sql-server-database-with-seed-data-to-.net-aspire-during-app-startup
 	https://aspireify.net/a/250709/how-to-have-gitlab-cicd-for-a-.net-aspire-project
+
+- Repo with database migration examples - [SQL Server Aspire Samples](https://github.com/Azure-Samples/azure-sql-db-aspire)
 
 
 ** Icons **

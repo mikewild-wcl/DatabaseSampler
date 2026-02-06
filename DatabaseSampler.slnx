@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/Database/">
+    <Project Path="DatabaseSampler.Postgres.MigrationService/DatabaseSampler.Postgres.MigrationService.csproj" />
+    <Project Path="DatabaseSampler.SqlServer.Deploy/DatabaseSampler.SqlServer.Deploy.csproj" Id="fc8ba8cb-2916-46f5-8e19-2b884d190b69" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
@@ -6,11 +10,13 @@
     <File Path="Directory.Packages.props" />
     <File Path="README.md" />
   </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="tests/DatabaseSampler.Application.Tests/DatabaseSampler.Application.Tests.csproj" />
+  </Folder>
   <Project Path="DatabaseSampler.AppHost/DatabaseSampler.AppHost.csproj" Id="8da0c738-bf6b-4231-9973-3ebb5e7106a1" />
-  <Project Path="DatabaseSampler.Application.Tests/DatabaseSampler.Application.Tests.csproj" />
   <Project Path="DatabaseSampler.Application/DatabaseSampler.Application.csproj" />
   <Project Path="DatabaseSampler.Functions/DatabaseSampler.Functions.csproj" />
   <Project Path="DatabaseSampler.ServiceDefaults/DatabaseSampler.ServiceDefaults.csproj" Id="777d9446-185b-45be-9883-faf31050ddde" />
   <Project Path="DatabaseSampler/DatabaseSampler.csproj" />
-  <Project Path="src/DatabaseSampler.Shared/DatabaseSampler.Shared.csproj" Id="84a8bbd0-1697-48af-9084-d11ff3ae2c6f" />
+  <Project Path="DatabaseSampler.Shared/DatabaseSampler.Shared.csproj" Id="84a8bbd0-1697-48af-9084-d11ff3ae2c6f" />
 </Solution>
