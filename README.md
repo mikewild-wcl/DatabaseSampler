@@ -224,6 +224,10 @@ or to see an interactive view of logs
 
 ### Functions (dotnet-isolated)
 
+Endpoints:
+ - GetLocation: [GET,POST] http://localhost:60809/api/GetLocation 
+ - GetStudents: [GET,POST] http://localhost:60809/api/GetStudents
+
 See
  - Announcement: 
     - https://techcommunity.microsoft.com/t5/apps-on-azure/net-on-azure-functions-roadmap/ba-p/2197916

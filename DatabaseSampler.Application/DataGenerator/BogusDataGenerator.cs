@@ -1,14 +1,17 @@
 ﻿using Bogus;
 using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Models;
+using Microsoft.Extensions.Logging;
 
 namespace DatabaseSampler.Application.DataGenerator;
 
-public class BogusDataGenerator : IDataGenerator
+public partial class BogusDataGenerator(ILogger<BogusDataGenerator> logger) : IDataGenerator
 {
-    public BogusDataGenerator()
-    {
-    }
+    [LoggerMessage(
+        EventId = 101, 
+        Level = LogLevel.Information, 
+        Message = "Bogus student created with Id={Id}, Name {FirstName} {LastName}.")]
+    public static partial void LogBogusStudentCreated(ILogger logger, int id, string firstName, string lastName);
 
     public Student CreateStudent()
     {
@@ -17,8 +20,13 @@ public class BogusDataGenerator : IDataGenerator
             .RuleFor(s => s.Id, f => 0)
             .RuleFor(s => s.FirstName, f => f.Name.FirstName())
             .RuleFor(s => s.LastName, f => f.Name.LastName())
-            .RuleFor(s => s.Created, f => f.Date.Past())
-            .FinishWith((f, s) => Console.WriteLine($"Student created. Id={s.Id}, Name {s.FirstName} {s.LastName}"));
+            .RuleFor(s => s.Created, f => f.Date.Past().ToUniversalTime())
+            .FinishWith((f, s) => {
+                if (logger.IsEnabled(LogLevel.Trace)) 
+                {
+                    LogBogusStudentCreated(logger, s.Id, s.FirstName, s.LastName);
+                }
+            });
 
         return student;
     }

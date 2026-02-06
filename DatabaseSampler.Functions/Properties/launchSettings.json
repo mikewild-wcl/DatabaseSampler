@@ -1,0 +1,9 @@
+﻿{
+  "profiles": {
+    "DatabaseSampler.Functions": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 60809",
+      "launchBrowser": false
+    }
+  }
+}

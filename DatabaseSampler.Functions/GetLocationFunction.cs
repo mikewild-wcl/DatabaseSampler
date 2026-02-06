@@ -7,34 +7,31 @@ using Microsoft.Azure.Functions.Worker.Http;
 
 namespace DatabaseSampler.Functions;
 
-public class GetLocationFunction
+public class GetLocationFunction(
+    ILocationService locationService,
+    ILogger<GetLocationFunction> logger)
 {
-    private readonly ILocationService _locationService;
-
-    public GetLocationFunction(ILocationService locationService)
-    {
-        _locationService = locationService;
-    }
+    private readonly ILocationService _locationService = locationService;
+    private readonly ILogger<GetLocationFunction> _logger = logger;
 
     [Function("GetLocation")]
     public async Task<HttpResponseData> GetLocation(
-        [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]
+        [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "location")]
         HttpRequestData req,
         FunctionContext executionContext)
     {
-        var logger = executionContext.GetLogger("HttpFunction");
-        logger.LogInformation("GetLocation HTTP trigger function processed a request.");
+        _logger.LogInformation("GetLocation HTTP trigger function processed a request.");
 
         var method = req.Method;//.Query["postcode"];
-        logger.LogInformation($"Method is {method}");
+        _logger.LogInformation($"Method is {method}");
 
         string postcode = null;
         switch (method)
         {
             case "GET":
                 var uri = req.Url;//.Query["postcode"];
-                logger.LogInformation($"Uri is {uri}");
-                logger.LogInformation($"Uri query is is {uri.Query}");
+                _logger.LogInformation($"Uri is {uri}");
+                _logger.LogInformation($"Uri query is is {uri.Query}");
                 var queryParameters = System.Web.HttpUtility.ParseQueryString(uri.Query);
                 postcode = queryParameters["postcode"];
                 break;
@@ -43,7 +40,7 @@ public class GetLocationFunction
                 using (var streamReader = new StreamReader(req.Body))
                 {
                     var payload = await streamReader.ReadToEndAsync();
-                    logger.LogInformation($"Have payload {payload}");
+                    _logger.LogInformation($"Have payload {payload}");
                     postcode = payload;
                 }
                 break;

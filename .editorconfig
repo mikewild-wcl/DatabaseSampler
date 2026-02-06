@@ -246,14 +246,15 @@ dotnet_naming_style.begins_with_i.required_suffix =
 dotnet_naming_style.begins_with_i.word_separator = 
 dotnet_naming_style.begins_with_i.capitalization = pascal_case
 
-# Aspire ServiceDefaults project rules
-
 # IDE0058: Expression value is never used
 dotnet_diagnostic.IDE0058.severity = silent
 
-# CA2007: Consider calling ConfigureAwait on the awaited task
-dotnet_diagnostic.CA2007.severity = silent
+# Suppressions
+[*.cs]
+dotnet_diagnostic.CA2007.severity = none # Consider calling ConfigureAwait on the awaited task
+dotnet_diagnostic.CA1515.severity = none # Consider making public types internal
 
+# Aspire ServiceDefaults project rules
 [**/*ServiceDefaults/**.cs] 
 dotnet_style_namespace_match_folder = false:silent # IDE0130
 dotnet_diagnostic.CA1062.severity = none # CA1062:Validate arguments of public methods

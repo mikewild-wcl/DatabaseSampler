@@ -30,6 +30,13 @@
     <ProjectReference Include="..\DatabaseSampler.Shared\DatabaseSampler.Shared.csproj" />
   </ItemGroup>
   
+  <ItemGroup>
+    <None Update="Properties\launchSettings.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  
   <!--<ItemGroup>
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

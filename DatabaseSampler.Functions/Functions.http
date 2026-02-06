@@ -1,0 +1,13 @@
+@Functions_HostAddress = http://localhost:60809
+
+GET {{Functions_HostAddress}}/api/students/
+
+Accept: application/json
+
+###
+
+GET {{Functions_HostAddress}}/api/locations?postcode=SW1A+1AA
+
+Accept: application/json
+
+###

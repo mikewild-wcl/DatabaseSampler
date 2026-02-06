@@ -4,17 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseSampler.Application.Data;
 
-public class PostgresSqlRepository : IPostgresSqlRepository
+public class PostgresSqlRepository(
+    StudentDbContext studentContext) : IPostgresSqlRepository
 {
-    private readonly StudentDbContext _studentContext;
-
-    public PostgresSqlRepository(StudentDbContext studentContext)
-    {
-        _studentContext = studentContext;
-    }
+    private readonly StudentDbContext _studentContext = studentContext;
 
     public async Task<int> AddStudentAsync(Student student)
     {
+        ArgumentNullException.ThrowIfNull(student);
+
         await _studentContext.AddAsync(student);
 
         await _studentContext.SaveChangesAsync();

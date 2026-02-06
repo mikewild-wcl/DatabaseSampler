@@ -71,7 +71,7 @@ cosmos
     .AddCosmosDatabase(cosmosDatabaseId)
     .AddContainer(expenseCollectionId, partitionKey);
 
-//Errors... pgcosmos readiness check still waiting for Postgres startu
+//Errors... pgcosmos readiness check still waiting for Postgres startup
 //https://github.com/Azure/azure-cosmos-db-emulator-docker/issues/209
 #pragma warning restore ASPIRECOSMOSDB001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 

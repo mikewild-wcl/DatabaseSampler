@@ -55,8 +55,7 @@ internal class Worker(
     {
         var strategy = dbContext.Database.CreateExecutionStrategy();
         await strategy.ExecuteAsync(async () =>
-        {
-            
+        {            
             await dbContext.Database.MigrateAsync(cancellationToken);
         });
     }

@@ -222,6 +222,17 @@ dotnet ef migrations add InitialCreate --context StudentDbContext --project ..\D
 ```
 it was "unable to determine which migrations have been applied. This can happen when your project uses a version of Entity Framework Core lower than 5.0.0 or when an error occurs while accessing the database.
 
+Problem on first attempt to save student:
+    "Cannot write DateTime with Kind=Local to PostgreSQL type 'timestamp with time zone', only UTC is supported. Note that it's not possible to mix DateTimes with different Kinds in an array, range, or multirange. (Parameter 'value')"
+    This is a breaking change in EF Core - see [this Stackoverflow post](https://stackoverflow.com/questions/69961449/net6-and-datetime-problem-cannot-write-datetime-with-kind-utc-to-postgresql-ty).
+    The fixes are either to add this to the startup code:
+    ```
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+    ```    
+    or make sure the date column is UTC format. This is the better fix, and is as simple as adding `.ToUniversalTime()` to the Bogus data generator date rule:
+    ```
+    .RuleFor(s => s.Created, f => f.Date.Past().ToUniversalTime())
+    ```
 
 ## Redis
 
@@ -312,6 +323,9 @@ All settings will come from AppHost now, so the following files are no longer ne
 # appsettings.Development.json
 # local.settings.json
 ```
+
+Functions have been changed to use a more modern style, including primary constructors, injected logger and new logger syntax.
+
 
 ## Cosmos DB
 

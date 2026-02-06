@@ -7,23 +7,25 @@ using Microsoft.Azure.Functions.Worker.Http;
 
 namespace DatabaseSampler.Functions;
 
-public class GetStudentsFunction
+public class GetStudentsFunction(
+    IPostgresSqlService postgresSqlService,
+    ILogger<GetStudentsFunction> logger)
 {
-    private readonly IPostgresSqlService _postgresSqlService;
+    private readonly IPostgresSqlService _postgresSqlService = postgresSqlService;
+    private readonly ILogger<GetStudentsFunction> _logger = logger;
 
-    public GetStudentsFunction(IPostgresSqlService postgresSqlService)
-    {
-        _postgresSqlService = postgresSqlService;
-    }
+    private static readonly Action<ILogger, Exception?> _logFunctionTriggered =
+    LoggerMessage.Define(
+        LogLevel.Information,
+        new EventId(0, nameof(GetStudentsFunction)),
+        "Get students HTTP trigger function called.");
 
     [Function("GetStudents")]
     public async Task<HttpResponseData> GetStudents(
-        [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] 
-        HttpRequestData req,
-        FunctionContext executionContext)
+        [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "students")] 
+        HttpRequestData req)
     {
-        var logger = executionContext.GetLogger("HttpFunction");
-        logger.LogInformation("GetStudents HTTP trigger function processed a request.");
+        _logFunctionTriggered(_logger, null);
         
         var data = await _postgresSqlService.GetStudentsAsync();
 
