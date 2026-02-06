@@ -7,7 +7,7 @@ public class PostcodesTestHttpClientFactory : TestHttpClientFactory
 {
     public HttpClient Get(string requestPostcode,
         bool isValidPostcode,
-        PostcodeLookupResultData postcodeResponseData,
+        PostcodeLookupResultData? postcodeResponseData,
         bool isTerminatedPostcode,
         TerminatedPostcodeLookupResultData terminatedPostcodeResponseData)
     {
@@ -17,7 +17,7 @@ public class PostcodesTestHttpClientFactory : TestHttpClientFactory
         {
             requests.Add(new RequestWrapper
             {
-                Uri = $"https://api.postcodes.io/postcodes/{Uri.EscapeDataString(requestPostcode)}",
+                Uri = $"postcodes/{Uri.EscapeDataString(requestPostcode)}",
                 ResponseObject = new PostcodeLookupResponse
                 {
                     Result = postcodeResponseData,
@@ -30,7 +30,7 @@ public class PostcodesTestHttpClientFactory : TestHttpClientFactory
         {
             requests.Add(new RequestWrapper
             {
-                Uri = $"https://api.postcodes.io/terminated_postcodes/{Uri.EscapeDataString(requestPostcode)}",
+                Uri = $"terminated_postcodes/{Uri.EscapeDataString(requestPostcode)}",
                 ResponseObject = new TerminatedPostcodeLookupResponse
                 {
                     Result = terminatedPostcodeResponseData,

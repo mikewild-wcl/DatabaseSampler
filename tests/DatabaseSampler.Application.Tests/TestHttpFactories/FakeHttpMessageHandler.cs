@@ -13,7 +13,7 @@ public class FakeHttpMessageHandler : DelegatingHandler
 
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        if (_fakeResponses.ContainsKey(request.RequestUri))
+        if (request?.RequestUri is not null && _fakeResponses.ContainsKey(request!.RequestUri))
         {
             return Task.FromResult(_fakeResponses[request.RequestUri]);
         }
