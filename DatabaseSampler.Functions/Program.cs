@@ -20,6 +20,9 @@ builder.Services
     .AddTransient<IPostgresSqlService, PostgresSqlService>();
 
 builder.Services
-    .AddHttpClient<ILocationService, LocationService>();
+    .AddHttpClient<ILocationService, LocationService>(client =>
+    {
+        client.BaseAddress = new(LocationService.PostcodeRetrieverBaseUrl);
+    });
 
 await builder.Build().RunAsync().ConfigureAwait(true);

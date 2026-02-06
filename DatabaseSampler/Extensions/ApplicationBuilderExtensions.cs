@@ -54,7 +54,10 @@ internal static class ApplicationBuilderExtensions
         public IHostApplicationBuilder AddHttpClients()
         {
             builder.Services
-                .AddHttpClient<ILocationService, LocationService>();
+                .AddHttpClient<ILocationService, LocationService>(client =>
+                {
+                    client.BaseAddress = new(LocationService.PostcodeRetrieverBaseUrl);
+                });
 
             return builder;
         }
