@@ -4,6 +4,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
+builder.Services.AddMemoryCache();
+
 builder.AddConfiguration()
     .AddServices()
     .AddDatabases()
@@ -12,8 +14,6 @@ builder.AddConfiguration()
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
-
-//await app.Services.InitializeCosmosDb().ConfigureAwait(true);
 
 app.MapDefaultEndpoints();
 

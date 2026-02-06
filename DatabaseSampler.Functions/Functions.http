@@ -1,13 +1,34 @@
 @Functions_HostAddress = http://localhost:60809
 
+# Test GET request for postcode
 GET {{Functions_HostAddress}}/api/students/
 
 Accept: application/json
 
 ###
 
-GET {{Functions_HostAddress}}/api/locations?postcode=SW1A+1AA
-
+GET {{Functions_HostAddress}}/api/location/SW1A+1AA
 Accept: application/json
+
+###
+
+# Test POST request for postcode
+POST {{Functions_HostAddress}}/api/location2
+Content-Type: application/json
+Accept: application/json
+
+{
+  "postcode": "SW1A 1AA"
+}
+
+###
+
+# Test bad request for missing postcode
+POST {{Functions_HostAddress}}/api/location2
+Content-Type: application/json
+Accept: application/json
+
+{  
+}
 
 ###

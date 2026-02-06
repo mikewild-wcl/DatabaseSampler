@@ -59,7 +59,7 @@ public class LocationService : ILocationService
 
     public async Task<Location> LookupTerminatedPostcodeAsync(string postcode)
     {
-        //Postcodes.io Returns 404 for "CV12 wt" so I have removed all special characters to get best possible result
+        //Postcodes.io Returns 404 for "CV12 wt" so I have removed special characters to get the best match
         var lookupUrl = $"{_baseUrl}/terminated_postcodes/{Uri.EscapeDataString(postcode)}";
 
         var responseMessage = await _httpClient.GetAsync(lookupUrl);

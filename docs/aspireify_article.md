@@ -325,7 +325,16 @@ All settings will come from AppHost now, so the following files are no longer ne
 ```
 
 Functions have been changed to use a more modern style, including primary constructors, injected logger and new logger syntax.
-
+I added 
+```
+builder.ConfigureFunctionsWebApplication();
+```
+I changed the functyions to use an ASP.NET MVC style routing, so the function names are now just the HTTP method, and the route is defined in the attribute, like this:
+```
+    [Function("GetStudents")]
+    [HttpGet("/students")]
+    public async Task<IActionResult> GetStudents()
+```
 
 ## Cosmos DB
 
