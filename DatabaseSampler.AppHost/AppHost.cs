@@ -6,52 +6,8 @@ var cosmosDatabaseIdParameter = builder.AddParameter(ParameterNames.CosmosDBData
 var cosmosExpenseCollectionId = builder.AddParameter(ParameterNames.CosmosDBExpenseCollectionId);
 var pgPasswordParameter = builder.AddParameter(ParameterNames.PostgreSQLPassword, secret: true);
 var sqlPasswordParameter = builder.AddParameter(ParameterNames.SqlServerPassword, secret: true);
+//TODO: Use SQL Parameter?
 //var sqlPortParameter = builder.AddParameter(ParameterNames.SqlServerPort);
-
-/*
-Need
- - redis
- - sql db
-    - initial migration to create db. Currently the application also runs migration
- - postgres db
-    - initial script to create tables
- - cosmos db - UseEmulator
-
- - web site
-    uses redis, postgres, sql db, cosmos db
-
- - function app
-    uses postgres
-
-Nuget packages for host
-    Aspire.Hosting.Azure.CosmosDB
-    Aspire.Hosting.Azure.Functions
-    Aspire.Hosting.Redis
-    Aspire.Hosting.PostgreSQL
-    Aspire.Hosting.SqlServer
-Nuget packages for website
-    Aspire.Hosting.Redis
-    Aspire.Data.EntityFramework.SqlServer
-    not this Aspire.Microsoft.EntityFrameworkCore.Cosmos
-    use Aspire.Microsoft.Azure.Cosmos
-    Aspire.Microsoft.EntityFrameworkCore.SqlServer
-    Aspire.Npgsql.EntityFrameworkCore.PostgreSQL
-    
-Aspire.Data.CosmosDb
-
-Nuget packages for function app
-    Aspire.Npgsql.EntityFrameworkCore.PostgreSQL
-
-Links
-    [Redis integration](https://aspire.dev/integrations/caching/redis/)
-    [Aspire PostgreSQL Entity Framework Core integration](https://aspire.dev/integrations/databases/efcore/postgresql/)
-    [Azure Cosmos DB integration](https://aspire.dev/integrations/cloud/azure/azure-cosmos-db/#hosting-integration)
-    [Aspire.Microsoft.Azure.Cosmos](https://www.nuget.org/packages/Aspire.Microsoft.Azure.Cosmos/)
-    [Aspire SQL Server Entity Framework Core integration](https://aspire.dev/integrations/databases/efcore/sql-server/)
-    []()
- */
-//var username = builder.AddParameter("username", secret: true);
-//var password = builder.AddParameter("password", secret: true);
 
 var cosmosDatabaseId = await cosmosDatabaseIdParameter.Resource.GetValueAsync(default).ConfigureAwait(true);
 var expenseCollectionId = await cosmosExpenseCollectionId.Resource.GetValueAsync(default).ConfigureAwait(true);

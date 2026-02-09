@@ -139,6 +139,7 @@ Any using statements in tests that references those can be removed.
 I also added this to `.editorconfig` to stop the warnings about underscores in test names:
 ```
 # Unit test project rules
+
 [**/*Tests/**.cs]
 dotnet_diagnostic.CA1707.severity = none # Allow underscores in test names
 ```
@@ -190,6 +191,39 @@ The AppHost needs references to the website and functions, so add those referenc
 
 Those names can be used in `AppHost.cs` to make the code easier to read.
 
+## AppHost
+Need
+ - redis
+ - sql db
+    - initial migration to create db. Currently the application also runs migration
+ - postgres db
+    - initial script to create tables
+ - cosmos db - UseEmulator
+
+ - web site
+    uses redis, postgres, sql db, cosmos db
+
+ - function app
+    uses postgres
+
+Nuget packages for host
+    Aspire.Hosting.Azure.CosmosDB
+    Aspire.Hosting.Azure.Functions
+    Aspire.Hosting.Redis
+    Aspire.Hosting.PostgreSQL
+    Aspire.Hosting.SqlServer
+Nuget packages for website
+    Aspire.Hosting.Redis
+    Aspire.Data.EntityFramework.SqlServer
+    not this Aspire.Microsoft.EntityFrameworkCore.Cosmos
+    use Aspire.Microsoft.Azure.Cosmos
+    Aspire.Microsoft.EntityFrameworkCore.SqlServer
+    Aspire.Npgsql.EntityFrameworkCore.PostgreSQL
+    
+Aspire.Data.CosmosDb
+
+Nuget packages for function app
+    Aspire.Npgsql.EntityFrameworkCore.PostgreSQL
 
 ## Adding databases
 
@@ -336,6 +370,21 @@ I changed the functyions to use an ASP.NET MVC style routing, so the function na
     public async Task<IActionResult> GetStudents()
 ```
 
+`local.settings.json` has a couple of additions - it now has an ASPNETCORE_URLS value and a Host section.
+```
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "ASPNETCORE_URLS": "http://localhost:60809"
+  },
+  "Host": {
+    "CORS": "*",
+    "CORSCredentials": false
+  }
+}
+```
 ## Cosmos DB
 
 I've set this up to use the preview emulator image so I can add the Data Explorer. This caused some issues on startup
@@ -394,7 +443,6 @@ Aspire made this easy, but removing old code made it harder.
 Once I got it running I saw a few things I wasn't happy with. This code was written to help me learn new concepts, but since then I've learned a lot more and I just had to fix some of the gaps.
 
 
-
 ## Links
 
  - Aspireify DatabaseSampler - emulators for now, next step - deploy to Azure
@@ -402,6 +450,17 @@ Once I got it running I saw a few things I wasn't happy with. This code was writ
 
 	https://aspireify.net/a/241216/add-sql-server-database-with-seed-data-to-.net-aspire-during-app-startup
 	https://aspireify.net/a/250709/how-to-have-gitlab-cicd-for-a-.net-aspire-project
+
+    [Redis integration](https://aspire.dev/integrations/caching/redis/)
+    [Aspire PostgreSQL Entity Framework Core integration](https://aspire.dev/integrations/databases/efcore/postgresql/)
+    [Azure Cosmos DB integration](https://aspire.dev/integrations/cloud/azure/azure-cosmos-db/#hosting-integration)
+    [Aspire.Microsoft.Azure.Cosmos](https://www.nuget.org/packages/Aspire.Microsoft.Azure.Cosmos/)
+    [Aspire SQL Server Entity Framework Core integration](https://aspire.dev/integrations/databases/efcore/sql-server/)
+    [Redis integration](https://aspire.dev/integrations/caching/redis/)
+    [Aspire PostgreSQL Entity Framework Core integration](https://aspire.dev/integrations/databases/efcore/postgresql/)
+    [Azure Cosmos DB integration](https://aspire.dev/integrations/cloud/azure/azure-cosmos-db/#hosting-integration)
+    [Aspire.Microsoft.Azure.Cosmos](https://www.nuget.org/packages/Aspire.Microsoft.Azure.Cosmos/)
+    [Aspire SQL Server Entity Framework Core integration](https://aspire.dev/integrations/databases/efcore/sql-server/)
 
 - Repo with database migration examples - [SQL Server Aspire Samples](https://github.com/Azure-Samples/azure-sql-db-aspire)
 

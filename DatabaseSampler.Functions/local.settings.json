@@ -2,6 +2,11 @@
   "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "ASPNETCORE_URLS": "http://localhost:60809"
+  },
+  "Host": {
+    "CORS": "*",
+    "CORSCredentials": false
   }
 }
