@@ -460,7 +460,6 @@ Once I got it running I saw a few things I wasn't happy with. This code was writ
     [Aspire PostgreSQL Entity Framework Core integration](https://aspire.dev/integrations/databases/efcore/postgresql/)
     [Azure Cosmos DB integration](https://aspire.dev/integrations/cloud/azure/azure-cosmos-db/#hosting-integration)
     [Aspire.Microsoft.Azure.Cosmos](https://www.nuget.org/packages/Aspire.Microsoft.Azure.Cosmos/)
-    [Aspire SQL Server Entity Framework Core integration](https://aspire.dev/integrations/databases/efcore/sql-server/)
 
 - Repo with database migration examples - [SQL Server Aspire Samples](https://github.com/Azure-Samples/azure-sql-db-aspire)
 
