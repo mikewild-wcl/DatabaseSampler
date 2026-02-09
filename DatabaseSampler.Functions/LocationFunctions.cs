@@ -50,7 +50,7 @@ public class LocationFunctions(
 
     [Function("PostLocation")]
     public async Task<IActionResult> PostLocation(
-        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "location2")]
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "location")]
         HttpRequest _,
         [FunctionsWorkerHttp.FromBody]
         PostcodeRequest payload,

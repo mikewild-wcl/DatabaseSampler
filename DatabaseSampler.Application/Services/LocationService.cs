@@ -22,8 +22,6 @@ public class LocationService : ILocationService
 
     public async Task<Location> LookupPostcodeAsync(string postcode)
     {
-        //https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-apis/
-
         //Postcodes.io Returns 404 for "CV12 wt" so I have removed all special characters to get best possible result
         var lookupUrl = $"postcodes/{Uri.EscapeDataString(postcode)}";
 

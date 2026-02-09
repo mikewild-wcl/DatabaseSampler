@@ -13,7 +13,7 @@ Accept: application/json
 ###
 
 # Test POST request for postcode
-POST {{Functions_HostAddress}}/api/location2
+POST {{Functions_HostAddress}}/api/location
 Content-Type: application/json
 Accept: application/json
 
@@ -24,11 +24,11 @@ Accept: application/json
 ###
 
 # Test bad request for missing postcode
-POST {{Functions_HostAddress}}/api/location2
+POST {{Functions_HostAddress}}/api/location
 Content-Type: application/json
 Accept: application/json
 
-{  
+{
 }
 
 ###
