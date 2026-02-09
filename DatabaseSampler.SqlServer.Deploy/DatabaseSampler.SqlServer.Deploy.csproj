@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="sql\01-tables.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="sql\01-tables.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Microsoft.Data.SqlClient" />
+    <PackageReference Include="DbUp" />
+    <PackageReference Include="DbUp.Extensions.Microsoft.Logging" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\DatabaseSampler.ServiceDefaults\DatabaseSampler.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\DatabaseSampler.Shared\DatabaseSampler.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

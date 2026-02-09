@@ -1,0 +1,24 @@
+﻿<Project Sdk="Aspire.AppHost.Sdk/13.1.0">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <UserSecretsId>44ce178d-b2c5-46c6-a0cc-1d1f1ff685c0</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.Azure.CosmosDB" />
+    <PackageReference Include="Aspire.Hosting.Azure.Functions" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+    <PackageReference Include="Aspire.Hosting.Redis" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DatabaseSampler.Functions\DatabaseSampler.Functions.csproj" AspireProjectMetadataTypeName="Functions" />
+    <ProjectReference Include="..\DatabaseSampler.SqlServer.Deploy\DatabaseSampler.SqlServer.Deploy.csproj" AspireProjectMetadataTypeName="SqlServerDeployment" />
+    <ProjectReference Include="..\DatabaseSampler\DatabaseSampler.csproj" AspireProjectMetadataTypeName="Website" />
+    <ProjectReference Include="..\DatabaseSampler.Postgres.MigrationService\DatabaseSampler.Postgres.MigrationService.csproj" AspireProjectMetadataTypeName="PostgresMigration" />
+    <ProjectReference Include="..\DatabaseSampler.Shared\DatabaseSampler.Shared.csproj" IsAspireProjectResource="false" />
+  </ItemGroup>
+
+</Project>

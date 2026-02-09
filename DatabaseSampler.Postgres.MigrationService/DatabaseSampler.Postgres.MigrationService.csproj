@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <UserSecretsId>dotnet-DatabaseSampler.Database.MigrationService-06e94d7b-6f4b-407c-8f08-3c596b5bee63</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DatabaseSampler.Application\DatabaseSampler.Application.csproj" />
+    <ProjectReference Include="..\DatabaseSampler.ServiceDefaults\DatabaseSampler.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\DatabaseSampler.ServiceDefaults\DatabaseSampler.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\DatabaseSampler.Shared\DatabaseSampler.Shared.csproj" />
+  </ItemGroup>
+</Project>

@@ -9,26 +9,21 @@ namespace DatabaseSampler.Application.Services;
 
 public class LocationService : ILocationService
 {
-    //TODO: Consider adding this to config
     public const string PostcodeRetrieverBaseUrl = "https://api.postcodes.io/";
 
     private readonly HttpClient _httpClient;
-    private readonly string _baseUrl;
 
     public LocationService(HttpClient httpClient)
     {
         _httpClient = httpClient;
         _httpClient.DefaultRequestHeaders.Accept.Clear();
         _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        _baseUrl = PostcodeRetrieverBaseUrl.TrimEnd('/');
     }
 
     public async Task<Location> LookupPostcodeAsync(string postcode)
     {
-        //https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-apis/
-
         //Postcodes.io Returns 404 for "CV12 wt" so I have removed all special characters to get best possible result
-        var lookupUrl = $"{_baseUrl}/postcodes/{Uri.EscapeDataString(postcode)}";
+        var lookupUrl = $"postcodes/{Uri.EscapeDataString(postcode)}";
 
         var responseMessage = await _httpClient.GetAsync(lookupUrl);
 
@@ -59,8 +54,8 @@ public class LocationService : ILocationService
 
     public async Task<Location> LookupTerminatedPostcodeAsync(string postcode)
     {
-        //Postcodes.io Returns 404 for "CV12 wt" so I have removed all special characters to get best possible result
-        var lookupUrl = $"{_baseUrl}/terminated_postcodes/{Uri.EscapeDataString(postcode)}";
+        //Postcodes.io Returns 404 for "CV12 wt" so I have removed special characters to get the best match
+        var lookupUrl = $"terminated_postcodes/{Uri.EscapeDataString(postcode)}";
 
         var responseMessage = await _httpClient.GetAsync(lookupUrl);
 

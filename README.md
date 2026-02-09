@@ -1,90 +1,88 @@
 # Database Samples #
 
-A site with samples for multiple databases
+A site with samples for multiple databases. The solution uses Aspire, so all dependencies are defined in the AppHost project.
 
-The following needs to be in `appsettings.json` to run on a local machine:
+## Testing
+
+Tests use **xUnit** + **Shouldly**.
+
+Run all tests:
 
 ```
-  "SqlConnectionString": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Locations;Integrated Security=True;MultipleActiveResultSets=True;",
-  "AzureSearchConfiguration":
-  {
-    "SearchServiceName": "Put your search service name here",
-    "SearchServiceAdminApiKey": "Put your primary or secondary API key here",
-    "SearchServiceQueryApiKey": "Put your query API key here"
+dotnet test
+```
+
+Only a few parameters are needed in the AppHost `appsettings.json` to run on a local machine:
+
+> Note: do not commit secrets. Sensitive values like passwords should be set in the user secrets file.
+
+```
+  "Parameters": {
+    "CosmosDBDatabaseId": "ToDoList",
+    "CosmosDBExpenseCollectionId": "Items",
+    "PostgreSQLPassword": "",
+    "SqlServerPassword": ""
   },
-  "PostgreSQL": {
-		"ConnectionString": "server=localhost;port=5432;userid=postgres;database=students;",
-		"DbPassword": "YourPasswordHere"
-  },
-  "CosmosConnectionString": "TODO",
-  "CosmosConnectionString": "<connection_string_>",
-  "CosmosConfig": {
-    "EndpointUri": "https://localhost:8081/",
-    "AuthorizationKey": "<key>",
-    "DatabaseId": "ToDoList",
-    "ExpenseCollectionId": "Items"
-  },
-  "RedisConnectionString": "localhost:6379",
-  "SqlConnectionString": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Locations;Integrated Security=True;MultipleActiveResultSets=True;"
 ```
 
-Make sure there is a PostgresSQL database matching the connection string (e.g. *students*).
-```
-DROP DATABASE IF EXISTS students;
-CREATE DATABASE students;
-```
+> Note: package versions are managed centrally in `Directory.Packages.props`.
 
-Set up entities: 
+## Database migrations
+
+Databases are created in AppHost using Aspire. The PostgreSQL database uses EF Core migrations, and the SQL Server database uses DbUp initialisation - these are both done in separate projects run at startup (or run in CI/CD provisioning for cloud scenarios.)
+
+### Migration - using Package Manager
 Make sure the main web project is set as the startup project, and in the Package Manager Console set the Default Project to DatabaseSampler.Application. Run 
 ```
 Add-Migration InitialStudentEntities -Context DatabaseSampler.Application.Data.StudentDbContext 
 Update-Database -Context DatabaseSampler.Application.Data.StudentDbContext
 ```
 
-Create a SQL Server database and table:
+### Using dotnet ef tools:
+
+See [Getting Started with EF Core](https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli)
+
+Install with :
 ```
-DROP DATABASE Locations;
-GO
-CREATE DATABASE Locations;
---DROP TABLE [dbo].[PostcodeLookup]
-GO
---TODO: Consider Postcode as Primary Key    
-CREATE TABLE [dbo].[PostcodeLookup](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Postcode] [varchar](10) NOT NULL,
-	[DistrictCode] [varchar](10) NOT NULL,
-	[Latitude] [decimal](9, 6) NULL,
-	[Longitude] [decimal](9, 6) NULL,
-	[Location] [geography] NULL,
-	[IsTerminated] [bit] NOT NULL,
-	[TerminatedYear] [smallint] NULL,
-	[TerminatedMonth] [smallint] NULL,
-	[Created] [datetime2](7) NOT NULL DEFAULT (getutcdate())
- CONSTRAINT [PK_PostcodeLookup] PRIMARY KEY CLUSTERED ([Id] ASC),
- INDEX [IX_PostcodeLookup_Postcode] NONCLUSTERED ([Postcode])
-)
-GO
-CREATE SPATIAL INDEX [SPATIAL_PostcodeLookup_Location] 
-   ON [dbo].[PostcodeLookup](Location);
-GO
+dotnet tool install --global dotnet-ef
+```
+or update with 
+```
+dotnet tool update --global dotnet-ef
 ```
 
+Make sure the project has a reference to Microsoft.EntityFrameworkCore.Design and Microsoft.EntityFrameworkCore.Tools packages, and that the main web project is set as the startup project. Then run the following commands from the project directory:
+To set up the initial migration
+and update the database, run the following commands from the project directory:
+```
+dotnet ef migrations add InitialCreate
+```
+
+You can update the database, directly with 
+```
+dotnet ef database update
+```
+but since we are using Aspire the update will be handled by the Migrations project.
 
 ## Functions setup
 
-Add `local.settings.json` file with:
+`local.settings.json` is part of the project and is checked into git. There is no need to add any values because Aspire will handle all environment settings.
+```
+`local.settings.json` is part of the project and is checked into git. There is no need to add any values because Aspire will handle all environment settings.
 ```
 {
   "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
-    "PostgreSQLConnectionString": "server=localhost;port=5432;userid=postgres;database=students;",
-    "PostgreSQLDbPassword": ""
+    "ASPNETCORE_URLS": "http://localhost:60809"
+  },
+  "Host": {
+    "CORS": "*",
+    "CORSCredentials": false
   }
 }
-```
-
+``````
 
 ## Articles
 
@@ -111,28 +109,6 @@ Deployment - see https://github.com/Microsoft/AKSDeploymentTutorial
  or updated https://github.com/microsoft/AKSDeploymentTutorialAML
 
 
-## Azure Search 
-
-look for data from query below,
-index it to search by qualification title
-
---(localdb)\ProjectsV13
---use [Matching.Live]
-
-select		* 
-from		Provider p
-inner join	providervenue pv
-on			pv.ProviderId = p.Id
-inner join	ProviderQualification pvq
-on			pvq.ProviderVenueId = pv.Id
-inner join	Qualification q
-on			q.Id = pvq.QualificationId
-inner join	QualificationRouteMapping qrm
-on			qrm.QualificationId = q.Id
-inner join	Route r
-on			r.Id = qrm.RouteId
-
-
 ## Developer setup
 
 ### Requirements
@@ -140,55 +116,11 @@ on			r.Id = qrm.RouteId
 * [Docker for X](https://docs.docker.com/install/#supported-platforms)
 * https://docs.docker.com/docker-for-windows/install/
 
+### Functions (dotnet-isolated)
 
-### Environment Setup
-
-The default development environment uses docker containers to host the following dependencies.
-
-* Redis
-
-On first setup run the following command from _**/containers/**_ to create the docker container images:
-
-`docker-compose build`
-
-To start the container run:
-
-`docker-compose up -d`
-
-To stop the container run:
-
-`docker-compose down`
-
-You can view the state of the running containers using:
-
-`docker ps -a`
-
-To check all details including volumes and network suse
-
-`docker inspect redis`
-
-To check network details use
-
-`docker network inspect containers_redis-network`
-
-To see all networks use
-
-`docker network ls`
-
-You can start an interactive shell inside the container with
-
-`docker exec -it redis /bin/bash`
-
-To see logs in the container use
-
-`docker logs redis`
-
-or to see an interactive view of logs 
-
-`docker logs -f redis`
-
-
-### Functions in .NET 5.0
+Endpoints:
+ - GetLocation: [GET,POST] http://localhost:60809/api/GetLocation 
+ - GetStudents: [GET,POST] http://localhost:60809/api/GetStudents
 
 See
  - Announcement: 
@@ -200,11 +132,17 @@ See
    - https://mattjameschampion.com/2020/12/23/so-you-want-to-run-azure-functions-using-net-5/
 
 
-Until VS2019 is updated, the functions project cannot be run from there. 
+Install Azure Functions Core Tools:
+See Azure Functions Core Tools | [Installing](https://github.com/Azure/azure-functions-core-tools/blob/v4.x/README.md#installing)
+with npm:
 
-Install the latest functions tools:
 ```
-npm i -g azure-functions-core-tools@3 --unsafe-perm true
+npm i -g azure-functions-core-tools@4 --unsafe-perm true
+```
+or winget: 
+```
+winget install Microsoft.Azure.FunctionsCoreTools
+https://learn.microsoft.com/en-gb/azure/azure-functions/functions-run-local?tabs=windows%2Cisolated-process%2Cnode-v4%2Cpython-v2%2Chttp-trigger%2Ccontainer-apps&pivots=programming-language-csharp#install-the-azure-functions-core-tools
 ```
 
 Then run from the project directory using

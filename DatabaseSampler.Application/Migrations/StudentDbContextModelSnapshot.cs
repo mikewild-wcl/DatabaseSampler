@@ -3,41 +3,49 @@ using System;
 using DatabaseSampler.Application.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace DatabaseSampler.Application.Migrations;
+#nullable disable
 
-[DbContext(typeof(StudentDbContext))]
-partial class StudentDbContextModelSnapshot : ModelSnapshot
+namespace DatabaseSampler.Application.Migrations
 {
-    protected override void BuildModel(ModelBuilder modelBuilder)
+    [DbContext(typeof(StudentDbContext))]
+    partial class StudentDbContextModelSnapshot : ModelSnapshot
     {
+        protected override void BuildModel(ModelBuilder modelBuilder)
+        {
 #pragma warning disable 612, 618
-        modelBuilder
-            .HasAnnotation("Relational:MaxIdentifierLength", 63)
-            .HasAnnotation("ProductVersion", "5.0.4")
-            .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+            modelBuilder
+                .HasAnnotation("ProductVersion", "10.0.2")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-        modelBuilder.Entity("DatabaseSampler.Application.Models.Student", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("integer")
-                    .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-                b.Property<DateTime>("Created")
-                    .HasColumnType("timestamp without time zone");
+            modelBuilder.Entity("DatabaseSampler.Application.Models.Student", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                b.Property<string>("FirstName")
-                    .HasColumnType("text");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                b.Property<string>("LastName")
-                    .HasColumnType("text");
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone");
 
-                b.HasKey("Id");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                b.ToTable("Students");
-            });
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Students");
+                });
 #pragma warning restore 612, 618
+        }
     }
 }

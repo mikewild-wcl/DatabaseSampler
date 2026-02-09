@@ -1,34 +1,28 @@
 ﻿using DatabaseSampler.Application.Data;
 using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Services;
+using DatabaseSampler.Shared;
+using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Npgsql;
 
-var host = new HostBuilder()
-    .ConfigureFunctionsWorkerDefaults()
-    .ConfigureServices(s =>
+var builder = FunctionsApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+
+builder.ConfigureFunctionsWebApplication();
+
+builder.AddNpgsqlDbContext<StudentDbContext>(connectionName: ResourceNames.PostgresDB);
+
+builder.Services
+    .AddTransient<IPostgresSqlRepository, PostgresSqlRepository>()
+    .AddTransient<IPostgresSqlService, PostgresSqlService>();
+
+builder.Services
+    .AddHttpClient<ILocationService, LocationService>(client =>
     {
-        s.AddTransient<IPostgresSqlRepository, PostgresSqlRepository>();
-        s.AddTransient<IPostgresSqlService, PostgresSqlService>();
+        client.BaseAddress = new(LocationService.PostcodeRetrieverBaseUrl);
+    });
 
-        //Configure PostgresSql
-        var pgConnectionString = Environment.GetEnvironmentVariable("PostgreSqlConnectionString");
-        var pgPassword = Environment.GetEnvironmentVariable("PostgreSqlDbPassword");
-        var pgBuilder = new NpgsqlConnectionStringBuilder(pgConnectionString)
-        {
-            Password = pgPassword
-        };
-
-        s.AddDbContext<StudentDbContext>(options =>
-            options.UseNpgsql(pgBuilder.ConnectionString));
-
-        Console.WriteLine("Adding HTTP Client");
-        s.AddHttpClient<ILocationService, LocationService>();
-
-        s.AddTransient<ILocationService, LocationService>();
-    })
-    .Build();
-
-await host.RunAsync();
+await builder.Build().RunAsync().ConfigureAwait(true);
