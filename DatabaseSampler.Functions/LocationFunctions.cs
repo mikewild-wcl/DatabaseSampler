@@ -19,13 +19,13 @@ public class LocationFunctions(
     private static readonly Action<ILogger, string, Exception?> _logGetFunctionTriggered =
         LoggerMessage.Define<string>(
             LogLevel.Information,
-            new EventId(0, nameof(StudentFunctions)),
+            new EventId(801, nameof(StudentFunctions)),
             "GET location HTTP trigger function called with postcode '{Postcode}'.");
 
     private static readonly Action<ILogger, string?, Exception?> _logPostFunctionTriggered =
         LoggerMessage.Define<string?>(
             LogLevel.Information,
-            new EventId(0, nameof(StudentFunctions)),
+            new EventId(802, nameof(StudentFunctions)),
             "POST location HTTP trigger function called with postcode '{Postcode}'.");
 
     [Function("GetLocation")]

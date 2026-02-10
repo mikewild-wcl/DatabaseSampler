@@ -26,6 +26,7 @@ internal static class ApplicationBuilderExtensions
             builder.Services
                 .AddTransient<IDataGenerator, BogusDataGenerator>()
                 .AddTransient<ICosmosDbService, CosmosDbService>()
+                .AddTransient<IMongoDbService, MongoDbService>()
                 .AddTransient<IPostgresSqlRepository, PostgresSqlRepository>()
                 .AddTransient<IPostgresSqlService, PostgresSqlService>();
 
@@ -43,6 +44,8 @@ internal static class ApplicationBuilderExtensions
                         .UseNetTopologySuite()
                         .EnableRetryOnFailure()),
                 ServiceLifetime.Transient);
+
+            builder.AddMongoDBClient(ResourceNames.MongoDB);
 
             builder.AddNpgsqlDbContext<StudentDbContext>(connectionName: ResourceNames.PostgresDB);
 

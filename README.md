@@ -68,8 +68,6 @@ but since we are using Aspire the update will be handled by the Migrations proje
 
 `local.settings.json` is part of the project and is checked into git. There is no need to add any values because Aspire will handle all environment settings.
 ```
-`local.settings.json` is part of the project and is checked into git. There is no need to add any values because Aspire will handle all environment settings.
-```
 {
   "IsEncrypted": false,
   "Values": {
@@ -82,7 +80,18 @@ but since we are using Aspire the update will be handled by the Migrations proje
     "CORSCredentials": false
   }
 }
-``````
+```
+
+## Logger messages
+
+Log message event id ranges:
+- 000-099: Application
+- 100-199: Bogus
+- 200-299: Cosmos DB
+- 300-399: PostgreSQL
+- 400-499: SQL Server
+- 500-599: MongoDB
+- 800-899: Azure Functions
 
 ## Articles
 

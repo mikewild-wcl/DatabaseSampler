@@ -1,7 +1,11 @@
 ﻿using DatabaseSampler.Application.Configuration;
 using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Models;
+using DatabaseSampler.Shared;
 using Microsoft.Azure.Cosmos;
+using NetTopologySuite.Geometries.Utilities;
+using System.Globalization;
+using System.Reflection.Metadata;
 
 namespace DatabaseSampler.Application.Services;
 
@@ -12,12 +16,38 @@ public class CosmosDbService(
     private readonly CosmosClient _dbClient = dbClient;
     private readonly CosmosDbConfiguration _config = config;
 
+    public async Task AddExpenseAsync(Expense expense)
+    {
+        ArgumentNullException.ThrowIfNull(expense);
+
+        var container = _dbClient.GetContainer(_config.DatabaseId, _config.ExpenseCollectionId);
+        var partition = !string.IsNullOrWhiteSpace(expense.Name)
+            ? char.ToUpper(expense.Name[0], CultureInfo.InvariantCulture).ToString()
+            : "EMPTY";
+
+        var properties = await container.ReadContainerAsync();
+        //Console.WriteLine(properties.Container..PartitionKeyPath);
+
+        var response = await container.CreateItemAsync(
+            new
+            {
+                id = expense.Id.ToString(),
+                //partitionKey = $"{PartitionKeyPaths.ExpenseName}/{partition}",
+                expense = new { name = expense.Name },
+                expense.Name,
+                expense.Amount,
+                expense.Frequency,
+                expense.StartDate,
+                expense.MonthlyCost,
+                expense.Created
+            },
+            //https://pmichaels.net/2021/03/13/cosmosdb-errors-on-inserting-new-data/
+                  //new PartitionKey($"{PartitionKeyPaths.ExpenseName}/{partition}"));
+            new PartitionKey(PartitionKeyPaths.ExpenseName));
+    }
+
     public async Task<IList<Expense>> GetItemsAsync(string queryString)
     {
-        //var databaseResponse = await _dbClient.CreateDatabaseIfNotExistsAsync(_config.DatabaseId).ConfigureAwait(true);
-        //var partitionKey = "/expense/name";
-        //var containerResponse = await databaseResponse.Database.CreateContainerIfNotExistsAsync(_config.ExpenseCollectionId, partitionKey).ConfigureAwait(true);
-
         var container = _dbClient.GetContainer(_config.DatabaseId, _config.ExpenseCollectionId);
 
         var query = container.GetItemQueryIterator<Expense>(new QueryDefinition(queryString));
@@ -30,13 +60,6 @@ public class CosmosDbService(
         }
 
         return results;
-
-        //GetItemsAsync("SELECT * FROM c");
-
-        //var client = new CosmosClient("x");
-        //var container = client.GetContainer("databaseid", "container");
-        //var db = client.GetDatabase("databaseid");
-        //db..
     }
 
     //private static async Task<Offer> UpdateOfferForCollectionAsync(string collectionSelfLink, int newOfferThroughput)

@@ -10,6 +10,10 @@ public static class ResourceNames
 
     public const string DatabaseDeployment = "deploy-db";
 
+    public const string Mongo = "mongo";
+    public const string MongoDB = "mongodb";
+    public const string MongoDataVolume = "mongo-db-sampler-data";
+
     public const string Postgres = "postgres";
     public const string PostgresDB = "postgresdb";
     public const string PostgresMigration = "postgresdb-migration-service";

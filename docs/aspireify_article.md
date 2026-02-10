@@ -331,7 +331,9 @@ app.MapControllerRoute(
 await app.RunAsync().ConfigureAwait(true);
 ```
 
-`Startup.cs` can be deleted.
+Note the calss to `builder.AddServiceDefaults()` and `app.MapDefaultEndpoints()` - these are Aspire extension methods that add default configuration and endpoints added to the AppHost.
+
+`Startup.cs` is no longer used and can be deleted.
 
 ## Function app
 

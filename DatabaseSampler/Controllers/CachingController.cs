@@ -11,20 +11,13 @@ using Microsoft.Extensions.Caching.Memory;
 namespace DatabaseSampler.Controllers;
 
 [AllowAnonymous]
-public class CachingController : Controller
+public class CachingController(IMemoryCache memoryCache,
+    IDistributedCache distributedCache,
+    ILocationService locationService) : Controller
 {
-    private readonly IDistributedCache _distributedCache;
-    private readonly IMemoryCache _memoryCache;
-    private readonly ILocationService _locationService;
-
-    public CachingController(IMemoryCache memoryCache,
-        IDistributedCache distributedCache,
-        ILocationService locationService)
-    {
-        _distributedCache = distributedCache;
-        _memoryCache = memoryCache;
-        _locationService = locationService;
-    }
+    private readonly IDistributedCache _distributedCache = distributedCache;
+    private readonly IMemoryCache _memoryCache = memoryCache;
+    private readonly ILocationService _locationService = locationService;
 
     public IActionResult Index()
     {

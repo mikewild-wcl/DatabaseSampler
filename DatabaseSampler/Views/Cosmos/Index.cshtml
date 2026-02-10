@@ -4,9 +4,15 @@
     ViewData["Title"] = "CosmosDB";
 }
 
-<h1>CosmosDB</h1>
+<h1>Cosmos DB</h1>
 
 <h2>Do some cool things in the cloud with Cosmos DB.</h2>
+
+<form asp-action="CreateExpense">
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-sm">Add an expense</button>
+    </div>
+</form>
 
 <p>Existing items</p>
 
@@ -30,10 +36,10 @@
                 <td>@item.StartDate</td>
                 <td>@item.MonthlyCost</td>
                 @*<td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                    </td>*@
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>*@
             </tr>
         }
     </tbody>

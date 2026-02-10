@@ -16,7 +16,7 @@ public class StudentFunctions(
     private static readonly Action<ILogger, Exception?> _logFunctionTriggered = 
         LoggerMessage.Define(
             LogLevel.Information,
-            new EventId(0, nameof(StudentFunctions)),
+            new EventId(810, nameof(StudentFunctions)),
             "Get students HTTP trigger function called.");
 
     [Function("GetStudents")]

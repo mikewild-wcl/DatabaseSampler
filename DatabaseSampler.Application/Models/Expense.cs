@@ -4,11 +4,14 @@ namespace DatabaseSampler.Application.Models;
 
 public class Expense
 {
+    [JsonPropertyName("id")]
+    public Guid Id { get; set; }
+
     [JsonPropertyName("name")]
     public string Name { get; set; }
 
     [JsonPropertyName("amount")]
-    public double Amount { get; set; }
+    public decimal Amount { get; set; }
 
     [JsonPropertyName("frequency")]
     public string Frequency { get; set; }
@@ -17,5 +20,8 @@ public class Expense
     public DateTime StartDate { get; set; }
 
     [JsonPropertyName("monthlyCost")]
-    public double MonthlyCost { get; set; }
+    public decimal MonthlyCost { get; set; }
+
+    [JsonPropertyName("created")]
+    public DateTime Created { get; set; }
 }
