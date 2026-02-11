@@ -103,6 +103,8 @@ Log message event id ranges:
 
 [Functions V3 Preview Setup](https://dev.to/azure/develop-azure-functions-using-net-core-3-0-gcm)
 
+[CosmosDb - Errors on Inserting New Data](https://pmichaels.net/2021/03/13/cosmosdb-errors-on-inserting-new-data/)
+
 ## Code Downloads
 
 [Cosmos Book Code](https://github.com/PacktPublishing/Guide-to-NoSQL-with-Azure-Cosmos-DB)
@@ -139,7 +141,6 @@ See
  - Older references - these use pre-release code
    - https://codetraveler.io/2021/02/12/creating-azure-functions-using-net-5/
    - https://mattjameschampion.com/2020/12/23/so-you-want-to-run-azure-functions-using-net-5/
-
 
 Install Azure Functions Core Tools:
 See Azure Functions Core Tools | [Installing](https://github.com/Azure/azure-functions-core-tools/blob/v4.x/README.md#installing)

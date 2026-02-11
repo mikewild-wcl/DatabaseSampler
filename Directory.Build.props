@@ -8,6 +8,8 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
+    <!-- Bypass Azure Cosmos SDK's Newtonsoft.Json check to avoid build errors -->
+    <AzureCosmosDisableNewtonsoftJsonCheck>true</AzureCosmosDisableNewtonsoftJsonCheck>
   </PropertyGroup>
 
   <ItemGroup>

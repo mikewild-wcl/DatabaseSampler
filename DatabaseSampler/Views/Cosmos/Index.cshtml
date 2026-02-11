@@ -33,7 +33,7 @@
                 <td>@item.Name</td>
                 <td>@item.Amount</td>
                 <td>@item.Frequency</td>
-                <td>@item.StartDate</td>
+                <td>@item.StartDate.ToShortDateString()</td>
                 <td>@item.MonthlyCost</td>
                 @*<td>
                     @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

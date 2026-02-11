@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace DatabaseSampler.Shared;
 
-namespace DatabaseSampler.Shared;
-
-public class PartitionKeyPaths
+public static class PartitionKeyPaths
 {
-    public const string ExpenseName = "/expense/name";
+    public const string ExpenseName = "/name";
 }

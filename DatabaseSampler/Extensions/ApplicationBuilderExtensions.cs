@@ -4,6 +4,7 @@ using DatabaseSampler.Application.DataGenerator;
 using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Services;
 using DatabaseSampler.Shared;
+using Microsoft.Azure.Cosmos;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseSampler.Extensions;
@@ -49,7 +50,12 @@ internal static class ApplicationBuilderExtensions
 
             builder.AddNpgsqlDbContext<StudentDbContext>(connectionName: ResourceNames.PostgresDB);
 
-            builder.AddAzureCosmosClient(ResourceNames.CosmosDB);
+            builder.AddAzureCosmosClient(ResourceNames.CosmosDB, 
+                configureClientOptions: options =>
+                    options.SerializerOptions = new CosmosSerializationOptions()
+                    {
+                        PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
+                    });
 
             return builder;
         }
