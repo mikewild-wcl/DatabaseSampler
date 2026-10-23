@@ -1,6 +1,13 @@
 using DatabaseSampler.Shared;
 
-var builder = DistributedApplication.CreateBuilder(args);
+var builder = DistributedApplication.CreateBuilder(
+    new DistributedApplicationOptions
+    {
+        Args = args,
+        DashboardApplicationName = "Database Sampler",
+    });
+
+builder.AddAzureContainerAppEnvironment(ResourceNames.AzureContainerAppEnvironment);
 
 var cosmosDatabaseIdParameter = builder.AddParameter(ParameterNames.CosmosDBDatabaseId);
 var cosmosExpenseCollectionId = builder.AddParameter(ParameterNames.CosmosDBExpenseCollectionId);

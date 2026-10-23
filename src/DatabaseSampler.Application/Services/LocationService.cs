@@ -20,7 +20,7 @@ public class LocationService : ILocationService
         _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     }
 
-    public async Task<Location> LookupPostcodeAsync(string postcode)
+    public async Task<Location?> LookupPostcodeAsync(string postcode)
     {
         //Postcodes.io Returns 404 for "CV12 wt" so I have removed all special characters to get best possible result
         var lookupUrl = $"postcodes/{Uri.EscapeDataString(postcode)}";
@@ -38,9 +38,9 @@ public class LocationService : ILocationService
         var contentStream = await responseMessage.Content.ReadAsStreamAsync();
         var response = await JsonSerializer.DeserializeAsync<PostcodeLookupResponse>(contentStream);
 
-       return response != null 
-           ? new Location
-           {
+        return response != null
+            ? new Location
+            {
                 Postcode = response.Result.Postcode,
                 Latitude = response.Result.Latitude,
                 Longitude = response.Result.Longitude,
@@ -49,15 +49,20 @@ public class LocationService : ILocationService
                 TerminatedYear = null,
                 TerminatedMonth = null
             }
-            : null;
+             : null;
     }
 
-    public async Task<Location> LookupTerminatedPostcodeAsync(string postcode)
+    public async Task<Location?> LookupTerminatedPostcodeAsync(string postcode)
     {
         //Postcodes.io Returns 404 for "CV12 wt" so I have removed special characters to get the best match
         var lookupUrl = $"terminated_postcodes/{Uri.EscapeDataString(postcode)}";
 
         var responseMessage = await _httpClient.GetAsync(lookupUrl);
+
+        if (responseMessage.StatusCode == HttpStatusCode.NotFound)
+        {
+            return null;
+        }
 
         responseMessage.EnsureSuccessStatusCode();
 

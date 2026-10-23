@@ -11,6 +11,4 @@ public static class ParameterNames
     public const string SqlServerPort = "SqlServerPort";
     
     public const string SqlServerPassword = "SqlServerPassword";
-
-
 }

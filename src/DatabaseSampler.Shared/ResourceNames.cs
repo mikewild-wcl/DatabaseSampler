@@ -2,6 +2,8 @@
 
 public static class ResourceNames
 {
+    public const string AzureContainerAppEnvironment = "azure-container-app-environment";
+
     public const string CosmosDB = "cosmos-db";
 
     public const string FunctionApp = "functions";

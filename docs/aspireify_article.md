@@ -471,3 +471,22 @@ Once I got it running I saw a few things I wasn't happy with. This code was writ
 See https://blog.leadingedje.com/post/aspire/cozydashboarding.html
     https://storybooks.fluentui.dev/react/?path=/docs/icons-catalog--docs
 .WithIconName("Globe")
+
+## Changes not listed above
+
+- Moved code into src\ and tst\ folders, and updated .slnx file to reflect that.
+- Added nuget package `Aspire.Hosting.Azure.AppContainer` to the `AppHost` project
+- Added this to `AppHost.cs`:
+  ```
+  builder.AddAzureContainerAppEnvironment(ResourceNames.AzureContainerAppEnvironment);
+  ```
+- added this to `Program.cs` in the `AppHost` project:
+  ```
+  var builder = DistributedApplication.CreateBuilder(
+      new DistributedApplicationOptions
+      {
+          Args = args,
+          DashboardApplicationName = "Database Sampler",
+      });
+  ```
+- removed package `Microsoft.VisualStudio.Web.CodeGeneration.Design` since it 

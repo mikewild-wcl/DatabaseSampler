@@ -14,10 +14,9 @@
     <PackageReference Include="Aspire.StackExchange.Redis" />    
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-      <PrivateAssets>all</PrivateAssets>
+      <PrivateAssets>all</PrivateAssets> 
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
   </ItemGroup>
 
 </Project>
