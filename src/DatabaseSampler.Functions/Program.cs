@@ -3,7 +3,6 @@ using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Services;
 using DatabaseSampler.Shared;
 using Microsoft.Azure.Functions.Worker.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 

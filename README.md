@@ -143,16 +143,16 @@ See
    - https://mattjameschampion.com/2020/12/23/so-you-want-to-run-azure-functions-using-net-5/
 
 Install Azure Functions Core Tools:
-See Azure Functions Core Tools | [Installing](https://github.com/Azure/azure-functions-core-tools/blob/v4.x/README.md#installing)
-with npm:
+See [Install the Azure Functions Core Tools](https://learn.microsoft.com/en-gb/azure/azure-functions/functions-run-local?tabs=windows%2Cisolated-process%2Cnode-v4%2Cpython-v2%2Chttp-trigger%2Ccontainer-apps&pivots=programming-language-csharp#install-the-azure-functions-core-tools) or [Azure Functions Core Tools | Installing](https://github.com/Azure/azure-functions-core-tools/blob/v4.x/README.md#installing)
 
+Use npm:
 ```
 npm i -g azure-functions-core-tools@4 --unsafe-perm true
 ```
-or winget: 
+
+Use winget (use `update` instead of `install` if an older version is already installed):
 ```
 winget install Microsoft.Azure.FunctionsCoreTools
-https://learn.microsoft.com/en-gb/azure/azure-functions/functions-run-local?tabs=windows%2Cisolated-process%2Cnode-v4%2Cpython-v2%2Chttp-trigger%2Ccontainer-apps&pivots=programming-language-csharp#install-the-azure-functions-core-tools
 ```
 
 Then run from the project directory using

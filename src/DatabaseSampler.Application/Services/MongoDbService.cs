@@ -4,7 +4,6 @@ using DatabaseSampler.Shared;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System.Net;
 
 namespace DatabaseSampler.Application.Services;
 
